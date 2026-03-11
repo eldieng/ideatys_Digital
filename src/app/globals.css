@@ -2,25 +2,91 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #09312A;
 }
 
 @theme inline {
+  /* Colors - IDEATYS Digital */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+
+  --color-primary: #09312A;
+  --color-primary-light: #0d4a3f;
+  --color-primary-dark: #061f1a;
+
+  --color-accent: #C15A18;
+  --color-accent-light: #d4732f;
+  --color-accent-dark: #a34b13;
+
+  --color-white: #FFFFFF;
+  --color-gray-light: #F5F5F5;
+  --color-gray: #E5E5E5;
+  --color-gray-medium: #9CA3AF;
+  --color-gray-dark: #4B5563;
+
+  /* Fonts */
+  --font-sans: var(--font-plus-jakarta);
   --font-mono: var(--font-geist-mono);
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-slide-up: slide-up 0.5s ease-out;
+  --animate-slide-down: slide-down 0.3s ease-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Base styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background-color: #C15A18;
+  color: #FFFFFF;
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid #C15A18;
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #09312A;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0d4a3f;
 }
