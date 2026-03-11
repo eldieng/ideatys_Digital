@@ -33,18 +33,26 @@ const iconMap: Record<string, React.ReactNode> = {
 export default function ServicesPage() {
   return (
     <MainLayout>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-primary text-white">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
+      {/* Hero with gradient and decorative elements */}
+      <section className="relative py-24 md:py-32 lg:py-40 bg-linear-to-br from-primary via-primary-dark to-primary overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl" />
+        </div>
+        
+        <Container className="relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection>
-              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-accent text-sm font-semibold mb-6">
+                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                 Nos services
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Des solutions digitales complètes
+              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white">
+                Des solutions digitales
+                <span className="block text-accent">sur mesure</span>
               </h1>
-              <p className="mt-6 text-lg text-white/70">
+              <p className="mt-8 text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
                 De la stratégie à la réalisation, nous couvrons tous vos besoins
                 digitaux avec expertise et créativité.
               </p>
@@ -54,37 +62,52 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="py-20 md:py-28 bg-gray-light">
         <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {services.map((service, index) => (
               <AnimatedSection key={service.slug} delay={index * 0.1}>
                 <Link
                   href={`/services/${service.slug}`}
                   className="group block h-full"
                 >
-                  <div className="bg-white border border-gray/50 rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div className="text-accent mb-6 transition-transform duration-300 group-hover:scale-110">
-                      {iconMap[service.icon]}
+                  <div className="relative bg-white rounded-3xl p-8 h-full hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                    {/* Hover gradient overlay */}
+                    <div className="absolute inset-0 bg-linear-to-br from-primary to-primary-dark opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    <div className="relative z-10">
+                      {/* Icon with background */}
+                      <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6 group-hover:bg-white/20 group-hover:text-white transition-all duration-500">
+                        {iconMap[service.icon]}
+                      </div>
+                      
+                      <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3 group-hover:text-white transition-colors duration-500 flex items-center gap-2">
+                        {service.title}
+                        <ArrowUpRight className="w-5 h-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                      </h2>
+                      
+                      <p className="text-gray-dark leading-relaxed mb-6 group-hover:text-white/80 transition-colors duration-500">
+                        {service.shortDescription}
+                      </p>
+                      
+                      <ul className="space-y-2">
+                        {service.results.slice(0, 3).map((result) => (
+                          <li
+                            key={result}
+                            className="flex items-center gap-3 text-sm text-gray-dark group-hover:text-white/70 transition-colors duration-500"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent group-hover:bg-white shrink-0" />
+                            {result}
+                          </li>
+                        ))}
+                      </ul>
+                      
+                      <div className="mt-6 pt-6 border-t border-gray/30 group-hover:border-white/20 transition-colors duration-500">
+                        <span className="text-sm font-semibold text-accent group-hover:text-white transition-colors duration-500">
+                          En savoir plus →
+                        </span>
+                      </div>
                     </div>
-                    <h2 className="text-2xl font-bold text-primary mb-4 flex items-center gap-2">
-                      {service.title}
-                      <ArrowUpRight className="w-5 h-5 opacity-0 transition-all group-hover:opacity-100 text-accent" />
-                    </h2>
-                    <p className="text-gray-dark leading-relaxed mb-6">
-                      {service.shortDescription}
-                    </p>
-                    <ul className="space-y-2">
-                      {service.results.slice(0, 3).map((result) => (
-                        <li
-                          key={result}
-                          className="flex items-center gap-2 text-sm text-gray-dark"
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
-                          {result}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                 </Link>
               </AnimatedSection>

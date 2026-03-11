@@ -45,7 +45,7 @@ export default function Header() {
     <>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold"
+        className="absolute -top-full left-4 z-100 px-4 py-2 bg-accent text-white rounded-lg text-sm font-semibold focus:top-4 transition-all"
       >
         Aller au contenu principal
       </a>
@@ -58,7 +58,7 @@ export default function Header() {
         )}
       >
       <Container>
-        <nav className="flex items-center justify-between h-20">
+        <nav className="flex items-center justify-between h-20 relative">
           {/* Logo */}
           <Link href="/" className="relative z-50 shrink-0">
             <Image
@@ -66,14 +66,14 @@ export default function Header() {
               alt="IDEATYS Digital"
               width={200}
               height={56}
-              className="h-23 w-auto"
+              className="h-16 w-auto"
               priority
             />
           </Link>
 
-          {/* Desktop Navigation - Hidden in presentation mode */}
+          {/* Desktop Navigation - Centered, Hidden in presentation mode */}
           {!siteConfig.PRESENTATION_MODE && (
-            <div className="hidden lg:flex items-center gap-8">
+            <div className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
               {mainNavigation
                 .filter((item) => item.label !== "Accueil")
                 .map((item) => (

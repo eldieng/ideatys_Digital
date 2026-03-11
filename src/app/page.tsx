@@ -5,6 +5,7 @@ import ServicesPreview from "@/components/sections/ServicesPreview";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import RealisationsPreview from "@/components/sections/RealisationsPreview";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import BlogPreview from "@/components/sections/BlogPreview";
 import CTASection from "@/components/sections/CTASection";
 
 const organizationJsonLd = {
@@ -46,6 +47,7 @@ export default function Home() {
       <WhyChooseUs />
       <RealisationsPreview />
       <TestimonialsSection />
+      <BlogPreview />
       <CTASection />
     </MainLayout>
   );

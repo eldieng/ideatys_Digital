@@ -23,7 +23,6 @@ export const mainNavigation: NavItem[] = [
   },
   { label: "Réalisations", href: "/realisations" },
   { label: "Blog", href: "/blog" },
-  { label: "Candidature", href: "/candidature" },
   { label: "Contact", href: "/contact" },
 ];
 

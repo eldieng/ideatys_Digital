@@ -14,20 +14,30 @@ export const metadata: Metadata = {
 export default function RealisationsPage() {
   return (
     <MainLayout>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-primary text-white">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
+      {/* Hero with gradient and decorative elements */}
+      <section className="relative py-24 md:py-32 lg:py-40 bg-linear-to-br from-primary via-primary-dark to-primary overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+          {/* Grid pattern */}
+          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+        </div>
+        
+        <Container className="relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection>
-              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4">
-                Nos réalisations
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-accent text-sm font-semibold mb-6">
+                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                Portfolio
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Des projets qui parlent d&apos;eux-mêmes
+              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white">
+                Nos réalisations
+                <span className="block text-accent">qui inspirent</span>
               </h1>
-              <p className="mt-6 text-lg text-white/70">
+              <p className="mt-8 text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
                 Chaque projet est une histoire unique. Découvrez comment nous
-                avons aidé nos clients à atteindre leurs objectifs.
+                avons aidé nos clients à transformer leurs idées en succès digital.
               </p>
             </AnimatedSection>
           </div>
@@ -35,7 +45,7 @@ export default function RealisationsPage() {
       </section>
 
       {/* Portfolio Grid with dynamic filters */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="py-20 md:py-28 bg-gray-light">
         <Container>
           <PortfolioGrid />
         </Container>
