@@ -4,7 +4,7 @@
  */
 export const siteConfig = {
   // Mode présentation : masque les liens vers les pages non finalisées
-  PRESENTATION_MODE: false,
+  PRESENTATION_MODE: true,
 
   // Pages visibles en mode présentation (les autres redirigent vers /en-construction)
   visiblePages: ["/", "/en-construction"],
