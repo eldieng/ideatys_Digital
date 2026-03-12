@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     "Agence digitale à Dakar, Sénégal. Création de sites web, stratégie digitale, community management, production audiovisuelle et design graphique. Transformez vos idées en solutions digitales performantes.",
   keywords: [
     "agence digitale Dakar",
+    "agence de communication Dakar",
+    "agence de communication digitale Dakar",
+    "agence marketing Dakar",
+    "agence marketing digital Sénégal",
     "agence web Sénégal",
     "création site web Dakar",
     "développement web Sénégal",
