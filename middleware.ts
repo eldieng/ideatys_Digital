@@ -11,6 +11,8 @@ const allowedPaths = [
   "/api",
   "/img",
   "/favicon",
+  "/sitemap.xml",
+  "/robots.txt",
 ];
 
 export function middleware(request: NextRequest) {
