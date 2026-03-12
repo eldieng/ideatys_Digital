@@ -3,7 +3,7 @@ import { services } from "@/data/services";
 
 export const dynamic = "force-static";
 
-const baseUrl = "https://ideatys.digital";
+const baseUrl = "https://ideatysdigital.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [

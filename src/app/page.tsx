@@ -12,27 +12,38 @@ const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "IDEATYS Digital",
-  url: "https://ideatys.digital",
-  logo: "https://ideatys.digital/img/ideatysdigital_logo.jpg",
+  url: "https://ideatysdigital.com",
+  logo: "https://ideatysdigital.com/img/ideatysdigital_logo.jpg",
   description:
-    "Agence digitale créative spécialisée en stratégie digitale, développement web, community management, production audiovisuelle et design graphique.",
+    "Agence digitale à Dakar, Sénégal. Spécialisée en création de sites web, stratégie digitale, community management, production audiovisuelle et design graphique.",
   contactPoint: {
     "@type": "ContactPoint",
-    email: "contact@ideatys.digital",
+    telephone: "+221786087014",
+    email: "ideatysdigital@gmail.com",
     contactType: "customer service",
     availableLanguage: "French",
+    areaServed: "SN",
   },
-  sameAs: [],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Dakar",
+    addressCountry: "SN",
+  },
+  sameAs: [
+    "https://www.linkedin.com/company/ideatysdigital/",
+    "https://www.facebook.com/ideatys.digital",
+    "https://www.instagram.com/ideatysdigital/"
+  ],
 };
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "IDEATYS Digital",
-  url: "https://ideatys.digital",
+  url: "https://ideatysdigital.com",
   potentialAction: {
     "@type": "SearchAction",
-    target: "https://ideatys.digital/blog?q={search_term_string}",
+    target: "https://ideatysdigital.com/blog?q={search_term_string}",
     "query-input": "required name=search_term_string",
   },
 };

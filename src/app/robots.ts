@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://ideatys.digital/sitemap.xml",
+    sitemap: "https://ideatysdigital.com/sitemap.xml",
   };
 }
