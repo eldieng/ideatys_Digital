@@ -33,21 +33,27 @@ export default function Footer() {
               </p>
               <div className="flex gap-4 mb-8">
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/company/ideatysdigital/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="LinkedIn"
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.facebook.com/ideatys.digital"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Facebook"
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                 >
                   <Facebook className="w-4 h-4" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/ideatysdigital/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Instagram"
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                 >
@@ -87,21 +93,27 @@ export default function Footer() {
               </p>
               <div className="flex gap-4">
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/company/ideatysdigital/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="LinkedIn"
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.facebook.com/ideatys.digital"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Facebook"
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                 >
                   <Facebook className="w-4 h-4" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/ideatysdigital/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Instagram"
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                 >
@@ -157,19 +169,19 @@ export default function Footer() {
                 <li className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-accent shrink-0" />
                   <a
-                    href="tel:+33000000000"
+                    href="tel:+221786087014"
                     className="text-sm text-white/70 hover:text-accent transition-colors"
                   >
-                    +33 0 00 00 00 00
+                    +221 78 608 70 14
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-accent shrink-0" />
                   <a
-                    href="mailto:contact@ideatys.digital"
+                    href="mailto:ideatysdigital@gmail.com"
                     className="text-sm text-white/70 hover:text-accent transition-colors"
                   >
-                    contact@ideatys.digital
+                    ideatysdigital@gmail.com
                   </a>
                 </li>
               </ul>
