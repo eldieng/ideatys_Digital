@@ -1,6 +1,8 @@
 import { MetadataRoute } from "next";
 import { services } from "@/data/services";
 
+export const dynamic = "force-static";
+
 const baseUrl = "https://ideatys.digital";
 
 export default function sitemap(): MetadataRoute.Sitemap {
