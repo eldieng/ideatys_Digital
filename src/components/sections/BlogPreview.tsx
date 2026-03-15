@@ -1,6 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -8,37 +10,43 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 
-const articles = [
-  {
-    slug: "optimiser-seo-2026",
-    title: "Comment optimiser votre SEO en 2026",
-    excerpt:
-      "Découvrez les meilleures pratiques SEO pour améliorer votre visibilité en ligne et attirer plus de trafic qualifié.",
-    category: "SEO",
-    date: "10 Fév 2026",
-    readTime: "5 min",
-  },
-  {
-    slug: "strategie-social-media",
-    title: "Stratégie social media : les tendances à suivre",
-    excerpt:
-      "Les réseaux sociaux évoluent constamment. Voici les tendances à intégrer dans votre stratégie digitale.",
-    category: "Social Media",
-    date: "5 Fév 2026",
-    readTime: "4 min",
-  },
-  {
-    slug: "importance-branding",
-    title: "L'importance du branding pour votre entreprise",
-    excerpt:
-      "Une identité de marque forte est essentielle pour se démarquer. Découvrez pourquoi et comment la construire.",
-    category: "Branding",
-    date: "1 Fév 2026",
-    readTime: "6 min",
-  },
-];
+interface Article {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  readTime: string;
+  image: string | null;
+  createdAt: string;
+}
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
 
 export default function BlogPreview() {
+  const [articles, setArticles] = useState<Article[]>([]);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const res = await fetch("/api/articles");
+        if (res.ok) {
+          const data = await res.json();
+          setArticles(data.slice(0, 3));
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement des articles:", error);
+      }
+    };
+
+    fetchArticles();
+  }, []);
   return (
     <section className="py-20 md:py-28 bg-gray-light">
       <Container>
@@ -54,13 +62,22 @@ export default function BlogPreview() {
             <AnimatedSection key={article.slug} delay={index * 0.1}>
               <Link href={`/blog/${article.slug}`} className="group block">
                 <article className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-                  {/* Image placeholder */}
+                  {/* Image */}
                   <div className="aspect-video bg-linear-to-br from-primary to-primary-light relative overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-white/30 text-6xl font-bold">
-                        {article.category.charAt(0)}
-                      </span>
-                    </div>
+                    {article.image ? (
+                      <Image
+                        src={article.image}
+                        alt={article.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-white/30 text-6xl font-bold">
+                          {article.category.charAt(0)}
+                        </span>
+                      </div>
+                    )}
                     <div className="absolute top-4 left-4">
                       <Badge>{article.category}</Badge>
                     </div>
@@ -70,7 +87,7 @@ export default function BlogPreview() {
                     <div className="flex items-center gap-4 text-sm text-gray-medium mb-3">
                       <span className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />
-                        {article.date}
+                        {formatDate(article.createdAt)}
                       </span>
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />

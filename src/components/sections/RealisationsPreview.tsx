@@ -1,34 +1,40 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import Button from "@/components/ui/Button";
 
-const projects = [
-  {
-    slug: "projet-1",
-    title: "Refonte Site E-commerce",
-    category: "Développement Web",
-    image: "/img/projects/project-1.jpg",
-  },
-  {
-    slug: "projet-2",
-    title: "Campagne Social Media",
-    category: "Community Management",
-    image: "/img/projects/project-2.jpg",
-  },
-  {
-    slug: "projet-3",
-    title: "Identité Visuelle Startup",
-    category: "Design Graphique",
-    image: "/img/projects/project-3.jpg",
-  },
-];
+interface Realisation {
+  id: string;
+  slug: string;
+  title: string;
+  category: string;
+  image: string | null;
+}
 
 export default function RealisationsPreview() {
+  const [projects, setProjects] = useState<Realisation[]>([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch("/api/realisations");
+        if (res.ok) {
+          const data = await res.json();
+          setProjects(data.slice(0, 3));
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement des réalisations:", error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
   return (
     <section className="py-20 md:py-28 bg-gray-light">
       <Container>
@@ -53,11 +59,20 @@ export default function RealisationsPreview() {
                       Voir le projet
                     </span>
                   </div>
-                  <div className="w-full h-full bg-linear-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                    <span className="text-4xl font-bold text-primary/20">
-                      {index + 1}
-                    </span>
-                  </div>
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-linear-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                      <span className="text-4xl font-bold text-primary/20">
+                        {project.title.charAt(0)}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <span className="text-xs font-semibold uppercase tracking-wider text-accent">

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Target,
@@ -14,7 +15,14 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Card from "@/components/ui/Card";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import { services } from "@/data/services";
+
+interface Service {
+  id: string;
+  slug: string;
+  title: string;
+  shortDesc: string;
+  icon: string;
+}
 
 const iconMap: Record<string, React.ReactNode> = {
   Target: <Target className="w-8 h-8" />,
@@ -26,6 +34,23 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export default function ServicesPreview() {
+  const [services, setServices] = useState<Service[]>([]);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const res = await fetch("/api/services");
+        if (res.ok) {
+          const data = await res.json();
+          setServices(data);
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement des services:", error);
+      }
+    };
+
+    fetchServices();
+  }, []);
   return (
     <section className="py-20 md:py-28 bg-white">
       <Container>
@@ -50,7 +75,7 @@ export default function ServicesPreview() {
                     <ArrowUpRight className="w-4 h-4 opacity-0 -translate-y-1 translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 text-accent" />
                   </h3>
                   <p className="text-gray-dark text-sm leading-relaxed">
-                    {service.shortDescription}
+                    {service.shortDesc}
                   </p>
                 </Card>
               </Link>

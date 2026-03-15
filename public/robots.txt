@@ -1,0 +1,6 @@
+# IDEATYS Digital - robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ideatysdigital.com/sitemap.xml

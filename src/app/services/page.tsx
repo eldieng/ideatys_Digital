@@ -13,7 +13,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import CTASection from "@/components/sections/CTASection";
-import { services } from "@/data/services";
+import prisma from "@/lib/prisma";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -30,7 +30,11 @@ const iconMap: Record<string, React.ReactNode> = {
   Printer: <Printer className="w-10 h-10" />,
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const services = await prisma.service.findMany({
+    where: { published: true },
+    orderBy: { order: "asc" },
+  });
   return (
     <MainLayout>
       {/* Hero with gradient and decorative elements */}
@@ -87,17 +91,17 @@ export default function ServicesPage() {
                       </h2>
                       
                       <p className="text-gray-dark leading-relaxed mb-6 group-hover:text-white/80 transition-colors duration-500">
-                        {service.shortDescription}
+                        {service.shortDesc}
                       </p>
                       
                       <ul className="space-y-2">
-                        {service.results.slice(0, 3).map((result) => (
+                        {service.features.slice(0, 3).map((feature) => (
                           <li
-                            key={result}
+                            key={feature}
                             className="flex items-center gap-3 text-sm text-gray-dark group-hover:text-white/70 transition-colors duration-500"
                           >
                             <span className="w-1.5 h-1.5 rounded-full bg-accent group-hover:bg-white shrink-0" />
-                            {result}
+                            {feature}
                           </li>
                         ))}
                       </ul>

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { contactSchema } from "@/lib/validation";
+import prisma from "@/lib/prisma";
 
 const RATE_LIMIT_WINDOW = 60 * 1000;
 const MAX_REQUESTS = 5;
@@ -45,23 +46,20 @@ export async function POST(request: NextRequest) {
 
     const data = result.data;
 
-    // TODO: Integrate with email service (Resend/SendGrid)
-    // await sendEmail({
-    //   to: "contact@ideatys.digital",
-    //   subject: `Nouvelle demande de devis - ${data.fullName}`,
-    //   html: `
-    //     <h2>Nouvelle demande de devis</h2>
-    //     <p><strong>Nom:</strong> ${data.fullName}</p>
-    //     <p><strong>Email:</strong> ${data.email}</p>
-    //     <p><strong>Téléphone:</strong> ${data.phone || "Non renseigné"}</p>
-    //     <p><strong>Entreprise:</strong> ${data.company || "Non renseigné"}</p>
-    //     <p><strong>Service:</strong> ${data.service}</p>
-    //     <p><strong>Budget:</strong> ${data.budget || "Non renseigné"}</p>
-    //     <p><strong>Message:</strong> ${data.message}</p>
-    //   `,
-    // });
+    // Sauvegarder dans la base de données
+    await prisma.demandeDevis.create({
+      data: {
+        nom: data.fullName,
+        email: data.email,
+        telephone: data.phone || null,
+        entreprise: data.company || null,
+        service: data.service,
+        budget: data.budget || null,
+        message: data.message,
+      },
+    });
 
-    console.log("📩 Nouvelle demande de contact:", {
+    console.log("📩 Nouvelle demande de devis enregistrée:", {
       name: data.fullName,
       email: data.email,
       service: data.service,

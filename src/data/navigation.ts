@@ -2,7 +2,7 @@ import { NavItem } from "@/types";
 
 export const mainNavigation: NavItem[] = [
   { label: "Accueil", href: "/" },
-  { label: "À propos", href: "/a-propos" },
+  { label: "À\u00A0propos", href: "/a-propos" },
   {
     label: "Services",
     href: "/services",

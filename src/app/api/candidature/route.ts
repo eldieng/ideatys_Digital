@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { candidatureSchema } from "@/lib/validation";
+import prisma from "@/lib/prisma";
 
 const RATE_LIMIT_WINDOW = 60 * 1000;
 const MAX_REQUESTS = 3;
@@ -81,27 +82,24 @@ export async function POST(request: NextRequest) {
 
     const data = result.data;
 
-    // TODO: Upload CV to cloud storage (S3/Uploadthing)
+    // TODO: Upload CV to cloud storage (Cloudinary/S3)
+    // Pour l'instant, on ne stocke pas le fichier CV
     // const cvUrl = await uploadFile(cvFile);
 
-    // TODO: Save to database (PostgreSQL)
-    // await db.candidature.create({ data: { ...data, cvUrl } });
+    // Sauvegarder dans la base de données
+    await prisma.candidature.create({
+      data: {
+        nom: `${data.firstName} ${data.lastName}`,
+        email: data.email,
+        telephone: data.phone || null,
+        poste: data.position,
+        portfolio: data.portfolioUrl || null,
+        message: data.motivation,
+        // cv: cvUrl, // À activer quand l'upload sera implémenté
+      },
+    });
 
-    // TODO: Send notification email to HR
-    // await sendEmail({
-    //   to: "rh@ideatys.digital",
-    //   subject: `Nouvelle candidature - ${data.firstName} ${data.lastName} - ${data.position}`,
-    //   ...
-    // });
-
-    // TODO: Send confirmation email to candidate
-    // await sendEmail({
-    //   to: data.email,
-    //   subject: "Candidature reçue - IDEATYS Digital",
-    //   ...
-    // });
-
-    console.log("👤 Nouvelle candidature:", {
+    console.log("👤 Nouvelle candidature enregistrée:", {
       name: `${data.firstName} ${data.lastName}`,
       email: data.email,
       position: data.position,

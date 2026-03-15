@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============== AUTH ==============
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String
+  role          Role      @default(ADMIN)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum Role {
+  ADMIN
+  COMMUNITY_MANAGER
+  EDITOR
+}
+
+// ============== CONTENT ==============
+
+model Article {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String   @db.Text
+  category    String
+  image       String?
+  author      String   @default("IDEATYS Digital")
+  readTime    String   @default("5 min")
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Realisation {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String   @db.Text
+  category    String
+  client      String?
+  year        String?
+  image       String?
+  gallery     String[] @default([])
+  technologies String[] @default([])
+  // Champs spécifiques par type
+  websiteUrl  String?  // Pour Développement Web
+  videoUrl    String?  // Pour Production Audiovisuelle (YouTube, Vimeo)
+  socialLinks Json?    // Pour Community Management (Facebook, Instagram, LinkedIn, TikTok)
+  published   Boolean  @default(false)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String   @db.Text
+  shortDesc   String
+  icon        String
+  features    String[] @default([])
+  published   Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ============== DEMANDES ==============
+
+model DemandeDevis {
+  id          String   @id @default(cuid())
+  nom         String
+  email       String
+  telephone   String?
+  entreprise  String?
+  service     String
+  budget      String?
+  message     String   @db.Text
+  status      DemandeStatus @default(NOUVELLE)
+  notes       String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Candidature {
+  id          String   @id @default(cuid())
+  nom         String
+  email       String
+  telephone   String?
+  poste       String
+  cv          String?
+  portfolio   String?
+  message     String   @db.Text
+  status      CandidatureStatus @default(NOUVELLE)
+  notes       String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum DemandeStatus {
+  NOUVELLE
+  EN_COURS
+  TRAITEE
+  ARCHIVEE
+}
+
+enum CandidatureStatus {
+  NOUVELLE
+  EN_COURS
+  ENTRETIEN
+  ACCEPTEE
+  REFUSEE
+  ARCHIVEE
+}

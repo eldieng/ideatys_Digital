@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Mode présentation : redirige toutes les pages sauf l'accueil vers /en-construction
-const PRESENTATION_MODE = true;
+const PRESENTATION_MODE = false;
 
 // Pages autorisées en mode présentation (seulement la page en construction et les ressources)
 const allowedPaths = [
@@ -13,6 +13,7 @@ const allowedPaths = [
   "/favicon",
   "/sitemap.xml",
   "/robots.txt",
+  "/admin",
 ];
 
 export function middleware(request: NextRequest) {

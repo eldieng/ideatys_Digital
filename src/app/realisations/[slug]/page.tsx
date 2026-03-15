@@ -1,19 +1,29 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react";
+import Image from "next/image";
+import { ArrowLeft, ArrowRight, ExternalLink, Facebook, Instagram, Linkedin } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import { projects } from "@/data/projects";
+import prisma from "@/lib/prisma";
+
+interface SocialLinks {
+  facebook?: string;
+  instagram?: string;
+  linkedin?: string;
+  tiktok?: string;
+}
 
 export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
+  const realisations = await prisma.realisation.findMany({
+    where: { published: true },
+    select: { slug: true },
+  });
+  return realisations.map((r) => ({ slug: r.slug }));
 }
 
 export async function generateMetadata({
@@ -22,12 +32,16 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = await prisma.realisation.findUnique({
+    where: { slug, published: true },
+    select: { title: true, description: true, client: true, image: true },
+  });
   if (!project) return {};
 
   return {
-    title: `${project.title} – ${project.client}`,
+    title: `${project.title}${project.client ? ` – ${project.client}` : ""}`,
     description: project.description,
+    openGraph: project.image ? { images: [project.image] } : undefined,
   };
 }
 
@@ -37,16 +51,26 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const projectIndex = projects.findIndex((p) => p.slug === slug);
-  const project = projects[projectIndex];
+  const project = await prisma.realisation.findUnique({
+    where: { slug, published: true },
+  });
 
   if (!project) {
     notFound();
   }
 
-  const prevProject = projectIndex > 0 ? projects[projectIndex - 1] : null;
-  const nextProject =
-    projectIndex < projects.length - 1 ? projects[projectIndex + 1] : null;
+  // Get prev/next projects
+  const allProjects = await prisma.realisation.findMany({
+    where: { published: true },
+    orderBy: { createdAt: "desc" },
+    select: { slug: true, title: true },
+  });
+  
+  const projectIndex = allProjects.findIndex((p) => p.slug === slug);
+  const prevProject = projectIndex > 0 ? allProjects[projectIndex - 1] : null;
+  const nextProject = projectIndex < allProjects.length - 1 ? allProjects[projectIndex + 1] : null;
+
+  const socialLinks = project.socialLinks as SocialLinks | null;
 
   return (
     <MainLayout>
@@ -93,70 +117,172 @@ export default async function ProjectPage({
       <section className="py-12 bg-gray-light">
         <Container>
           <AnimatedSection>
-            <div className="aspect-video rounded-2xl overflow-hidden bg-white shadow-xl">
-              <div className="w-full h-full bg-linear-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-                <span className="text-6xl font-bold text-primary/10">
-                  {project.client}
-                </span>
-              </div>
+            <div className="aspect-video rounded-2xl overflow-hidden bg-white shadow-xl relative">
+              {project.image ? (
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-linear-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+                  <span className="text-6xl font-bold text-primary/10">
+                    {project.client || project.title.charAt(0)}
+                  </span>
+                </div>
+              )}
             </div>
           </AnimatedSection>
         </Container>
       </section>
 
-      {/* Context & Solution */}
+      {/* Description */}
       <section className="py-20 md:py-28 bg-white">
         <Container size="md">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <AnimatedSection direction="left">
-              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4">
-                Le contexte
-              </span>
+          <AnimatedSection>
+            <div className="prose prose-lg max-w-none">
               <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6">
-                Brief client
+                À propos du projet
               </h2>
-              <p className="text-gray-dark leading-relaxed">{project.context}</p>
-            </AnimatedSection>
-            <AnimatedSection direction="right">
-              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4">
-                Notre solution
-              </span>
-              <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6">
-                L&apos;approche IDEATYS
-              </h2>
-              <p className="text-gray-dark leading-relaxed">
-                {project.solution}
+              <p className="text-gray-dark leading-relaxed whitespace-pre-line">
+                {project.description}
               </p>
-            </AnimatedSection>
-          </div>
+            </div>
+
+            {/* Infos projet */}
+            <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+              {project.client && (
+                <div>
+                  <span className="text-sm text-gray-medium">Client</span>
+                  <p className="font-semibold text-primary">{project.client}</p>
+                </div>
+              )}
+              {project.year && (
+                <div>
+                  <span className="text-sm text-gray-medium">Année</span>
+                  <p className="font-semibold text-primary">{project.year}</p>
+                </div>
+              )}
+              <div>
+                <span className="text-sm text-gray-medium">Catégorie</span>
+                <p className="font-semibold text-primary">{project.category}</p>
+              </div>
+              {project.websiteUrl && (
+                <div>
+                  <span className="text-sm text-gray-medium">Site web</span>
+                  <a
+                    href={project.websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 font-semibold text-accent hover:underline"
+                  >
+                    Visiter <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+              )}
+            </div>
+
+            {/* Liens réseaux sociaux - Pour CM */}
+            {socialLinks && Object.values(socialLinks).some(v => v) && (
+              <div className="mt-8">
+                <span className="text-sm text-gray-medium block mb-3">Réseaux sociaux</span>
+                <div className="flex gap-3">
+                  {socialLinks.facebook && (
+                    <a
+                      href={socialLinks.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 bg-gray-light rounded-lg text-primary hover:bg-accent hover:text-white transition-colors"
+                    >
+                      <Facebook className="w-5 h-5" />
+                    </a>
+                  )}
+                  {socialLinks.instagram && (
+                    <a
+                      href={socialLinks.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 bg-gray-light rounded-lg text-primary hover:bg-accent hover:text-white transition-colors"
+                    >
+                      <Instagram className="w-5 h-5" />
+                    </a>
+                  )}
+                  {socialLinks.linkedin && (
+                    <a
+                      href={socialLinks.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 bg-gray-light rounded-lg text-primary hover:bg-accent hover:text-white transition-colors"
+                    >
+                      <Linkedin className="w-5 h-5" />
+                    </a>
+                  )}
+                  {socialLinks.tiktok && (
+                    <a
+                      href={socialLinks.tiktok}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 bg-gray-light rounded-lg text-primary hover:bg-accent hover:text-white transition-colors"
+                    >
+                      <span className="text-sm font-bold">TikTok</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
+          </AnimatedSection>
         </Container>
       </section>
 
-      {/* Results */}
-      <section className="py-20 md:py-28 bg-primary text-white">
-        <Container size="md">
-          <AnimatedSection>
-            <div className="text-center mb-12">
-              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent-light mb-4">
-                Résultats
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold">
-                Des résultats concrets
+      {/* Galerie d'images - Pour Design et CM */}
+      {project.gallery && project.gallery.length > 0 && (
+        <section className="py-20 md:py-28 bg-gray-light">
+          <Container>
+            <AnimatedSection>
+              <h2 className="text-2xl md:text-3xl font-bold text-primary mb-8 text-center">
+                Galerie
               </h2>
+            </AnimatedSection>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {project.gallery.map((img, index) => (
+                <AnimatedSection key={index} delay={index * 0.1}>
+                  <div className="aspect-square rounded-xl overflow-hidden relative bg-white shadow-lg">
+                    <Image
+                      src={img}
+                      alt={`${project.title} - Image ${index + 1}`}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </AnimatedSection>
+              ))}
             </div>
-          </AnimatedSection>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {project.results.map((result, index) => (
-              <AnimatedSection key={result} delay={index * 0.1}>
-                <div className="flex items-center gap-3 p-5 rounded-xl bg-white/10">
-                  <CheckCircle className="w-5 h-5 text-accent shrink-0" />
-                  <span className="font-medium">{result}</span>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      )}
+
+      {/* Vidéo - Pour Production Audiovisuelle */}
+      {project.videoUrl && (
+        <section className="py-20 md:py-28 bg-gray-light">
+          <Container size="md">
+            <AnimatedSection>
+              <h2 className="text-2xl md:text-3xl font-bold text-primary mb-8 text-center">
+                Vidéo du projet
+              </h2>
+              <div className="aspect-video rounded-2xl overflow-hidden shadow-xl">
+                <iframe
+                  src={project.videoUrl.replace("watch?v=", "embed/")}
+                  title={project.title}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </AnimatedSection>
+          </Container>
+        </section>
+      )}
 
       {/* Navigation */}
       <section className="py-12 bg-gray-light">

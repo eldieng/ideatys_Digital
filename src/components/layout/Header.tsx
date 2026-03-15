@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
+import { Menu, X, ChevronDown, User, LogOut } from "lucide-react";
 import { mainNavigation } from "@/data/navigation";
 import { siteConfig } from "@/config/site";
 import Container from "@/components/ui/Container";
@@ -13,9 +14,11 @@ import { cn } from "@/lib/utils";
 
 export default function Header() {
   const pathname = usePathname();
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -43,12 +46,6 @@ export default function Header() {
 
   return (
     <>
-      <a
-        href="#main-content"
-        className="absolute -top-full left-4 z-100 px-4 py-2 bg-accent text-white rounded-lg text-sm font-semibold focus:top-4 transition-all"
-      >
-        Aller au contenu principal
-      </a>
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
@@ -119,9 +116,53 @@ export default function Header() {
                   </div>
                 ))}
 
-              <Button href="/contact" variant="primary" size="sm">
+              <Button href="/contact" variant="primary" size="sm" className="whitespace-nowrap">
                 Demander un devis
               </Button>
+              
+              {/* User Auth Section */}
+              {session ? (
+                <div
+                  className="relative"
+                  onMouseEnter={() => setShowUserMenu(true)}
+                  onMouseLeave={() => setShowUserMenu(false)}
+                >
+                  <button className="flex items-center gap-2 text-sm font-medium text-primary hover:text-accent transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-white text-xs font-bold">
+                      {session.user?.name?.charAt(0).toUpperCase() || <User className="w-4 h-4" />}
+                    </div>
+                    <span className="hidden xl:inline">{session.user?.name?.split(" ")[0]}</span>
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                  
+                  {showUserMenu && (
+                    <div className="absolute top-full right-0 pt-2 animate-slide-down">
+                      <div className="bg-white rounded-xl shadow-xl border border-gray/50 py-2 min-w-[180px]">
+                        <Link
+                          href="/admin"
+                          className="block px-4 py-2.5 text-sm text-gray-dark hover:text-accent hover:bg-gray-light transition-colors"
+                        >
+                          Dashboard
+                        </Link>
+                        <button
+                          onClick={() => signOut({ callbackUrl: "/" })}
+                          className="w-full text-left px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors flex items-center gap-2"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          Déconnexion
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  href="/admin/login"
+                  className="text-sm font-medium text-primary hover:text-accent transition-colors"
+                >
+                  Connexion
+                </Link>
+              )}
             </div>
           )}
 
@@ -177,7 +218,7 @@ export default function Header() {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-8">
+                  <div className="mt-8 space-y-4">
                     <Button
                       href="/contact"
                       variant="primary"
@@ -186,6 +227,45 @@ export default function Header() {
                     >
                       Demander un devis
                     </Button>
+                    
+                    {session ? (
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-3 px-2 py-2">
+                          <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white font-bold">
+                            {session.user?.name?.charAt(0).toUpperCase() || <User className="w-5 h-5" />}
+                          </div>
+                          <div>
+                            <p className="font-medium text-primary">{session.user?.name}</p>
+                            <p className="text-xs text-gray-500">{session.user?.email}</p>
+                          </div>
+                        </div>
+                        <Link
+                          href="/admin"
+                          onClick={() => setIsOpen(false)}
+                          className="block text-center py-2 text-sm font-medium text-accent hover:underline"
+                        >
+                          Dashboard
+                        </Link>
+                        <button
+                          onClick={() => {
+                            setIsOpen(false);
+                            signOut({ callbackUrl: "/" });
+                          }}
+                          className="w-full text-center py-2 text-sm font-medium text-red-500 hover:underline flex items-center justify-center gap-2"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          Déconnexion
+                        </button>
+                      </div>
+                    ) : (
+                      <Link
+                        href="/admin/login"
+                        onClick={() => setIsOpen(false)}
+                        className="block text-center py-2 text-sm font-medium text-primary hover:text-accent transition-colors"
+                      >
+                        Connexion
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>

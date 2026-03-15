@@ -1,44 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Clock, User } from "lucide-react";
 
-const categories = ["Tous", "SEO", "Marketing Digital", "Branding", "Web", "Expertise"];
+interface Article {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  author: string;
+  readTime: string;
+  image: string | null;
+  createdAt: string;
+}
 
-const articles = [
-  {
-    slug: "optimiser-seo-2026",
-    title: "Comment optimiser votre SEO en 2026",
-    excerpt:
-      "Découvrez les meilleures pratiques SEO pour améliorer votre visibilité en ligne et attirer plus de trafic qualifié.",
-    category: "SEO",
-    author: "IDEATYS Digital",
-    date: "2026-02-10",
-    readTime: 5,
-  },
-  {
-    slug: "strategie-social-media",
-    title: "Les clés d'une stratégie social media réussie",
-    excerpt:
-      "Apprenez à construire une stratégie social media efficace qui engage votre audience et génère des résultats.",
-    category: "Marketing Digital",
-    author: "IDEATYS Digital",
-    date: "2026-02-05",
-    readTime: 7,
-  },
-  {
-    slug: "importance-branding",
-    title: "Pourquoi le branding est essentiel pour votre entreprise",
-    excerpt:
-      "Le branding va bien au-delà du logo. Découvrez comment une identité de marque forte peut transformer votre business.",
-    category: "Branding",
-    author: "IDEATYS Digital",
-    date: "2026-01-28",
-    readTime: 6,
-  },
-];
+const categories = ["Tous", "SEO", "Marketing Digital", "Branding", "Développement", "Design"];
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString("fr-FR", {
@@ -49,8 +29,28 @@ function formatDate(dateStr: string) {
 }
 
 export default function BlogGrid() {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("Tous");
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const res = await fetch("/api/articles");
+        if (res.ok) {
+          const data = await res.json();
+          setArticles(data);
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement des articles:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
 
   const filtered = articles.filter((article) => {
     const matchesCategory =
@@ -112,10 +112,21 @@ export default function BlogGrid() {
                 className="group block h-full"
               >
                 <article className="bg-white border border-gray/50 rounded-2xl overflow-hidden h-full hover:shadow-xl transition-all duration-300">
-                  <div className="aspect-video bg-gray-light flex items-center justify-center">
-                    <span className="text-4xl font-bold text-primary/10">
-                      BLOG
-                    </span>
+                  <div className="aspect-video bg-gray-light relative overflow-hidden">
+                    {article.image ? (
+                      <Image
+                        src={article.image}
+                        alt={article.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="text-4xl font-bold text-primary/10">
+                          BLOG
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="p-6">
                     <span className="text-xs font-semibold uppercase tracking-wider text-accent">
@@ -134,9 +145,9 @@ export default function BlogGrid() {
                       </span>
                       <span className="flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5" />
-                        {article.readTime} min
+                        {article.readTime}
                       </span>
-                      <span>{formatDate(article.date)}</span>
+                      <span>{formatDate(article.createdAt)}</span>
                     </div>
                   </div>
                 </article>
@@ -146,7 +157,13 @@ export default function BlogGrid() {
         </AnimatePresence>
       </motion.div>
 
-      {filtered.length === 0 && (
+      {loading && (
+        <div className="flex justify-center py-12">
+          <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
+
+      {!loading && filtered.length === 0 && (
         <p className="text-center text-gray-dark py-12">
           Aucun article trouvé.
         </p>

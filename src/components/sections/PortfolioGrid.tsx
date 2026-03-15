@@ -1,9 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { projects } from "@/data/projects";
+
+interface Realisation {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  client: string | null;
+  year: string | null;
+  image: string | null;
+  technologies: string[];
+}
 
 const categories = [
   "Tous",
@@ -15,7 +27,27 @@ const categories = [
 ];
 
 export default function PortfolioGrid() {
+  const [projects, setProjects] = useState<Realisation[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("Tous");
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch("/api/realisations");
+        if (res.ok) {
+          const data = await res.json();
+          setProjects(data);
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement des réalisations:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const filtered =
     activeCategory === "Tous"
@@ -66,11 +98,20 @@ export default function PortfolioGrid() {
                       Voir le projet
                     </span>
                   </div>
-                  <div className="w-full h-full bg-linear-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-                    <span className="text-5xl font-bold text-primary/10">
-                      {project.client.charAt(0)}
-                    </span>
-                  </div>
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-linear-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+                      <span className="text-5xl font-bold text-primary/10">
+                        {project.client?.charAt(0) || project.title.charAt(0)}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <span className="text-xs font-semibold uppercase tracking-wider text-accent">
@@ -89,7 +130,13 @@ export default function PortfolioGrid() {
         </AnimatePresence>
       </motion.div>
 
-      {filtered.length === 0 && (
+      {loading && (
+        <div className="flex justify-center py-12">
+          <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
+
+      {!loading && filtered.length === 0 && (
         <p className="text-center text-gray-dark py-12">
           Aucun projet dans cette catégorie pour le moment.
         </p>
