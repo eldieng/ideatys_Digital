@@ -95,42 +95,42 @@ export default function EnConstructionPage() {
           </div>
 
           {/* Social links */}
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center mb-8">
             <a
               href="https://www.linkedin.com/company/ideatysdigital/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-accent hover:scale-110 transition-all border border-white/10"
+              className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-accent hover:scale-110 transition-all border border-white/10"
             >
-              <Linkedin className="w-6 h-6 text-white" />
+              <Linkedin className="w-5 h-5 text-white" />
             </a>
             <a
               href="https://www.facebook.com/ideatys.digital"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-accent hover:scale-110 transition-all border border-white/10"
+              className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-accent hover:scale-110 transition-all border border-white/10"
             >
-              <Facebook className="w-6 h-6 text-white" />
+              <Facebook className="w-5 h-5 text-white" />
             </a>
             <a
               href="https://www.instagram.com/ideatysdigital/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-accent hover:scale-110 transition-all border border-white/10"
+              className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-accent hover:scale-110 transition-all border border-white/10"
             >
-              <Instagram className="w-6 h-6 text-white" />
+              <Instagram className="w-5 h-5 text-white" />
             </a>
           </div>
+
+          {/* Footer */}
+          <p className="text-white/40 text-sm">
+            &copy; {new Date().getFullYear()} IDEATYS Digital. Tous droits réservés.
+          </p>
         </div>
       </div>
-
-      {/* Footer */}
-      <p className="absolute bottom-6 text-white/40 text-sm">
-        &copy; {new Date().getFullYear()} IDEATYS Digital. Tous droits réservés.
-      </p>
     </div>
   );
 }
