@@ -14,6 +14,8 @@ import {
   MessageSquare,
   Users,
   UserCog,
+  Receipt,
+  FileCheck,
 } from "lucide-react";
 
 const navigation = [
@@ -21,7 +23,9 @@ const navigation = [
   { name: "Articles", href: "/admin/articles", icon: FileText },
   { name: "Réalisations", href: "/admin/realisations", icon: FolderOpen },
   { name: "Services", href: "/admin/services", icon: Briefcase },
-  { name: "Demandes de devis", href: "/admin/demandes", icon: MessageSquare },
+  { name: "Demandes", href: "/admin/demandes", icon: MessageSquare },
+  { name: "Devis", href: "/admin/devis", icon: FileCheck },
+  { name: "Factures", href: "/admin/factures", icon: Receipt },
   { name: "Candidatures", href: "/admin/candidatures", icon: Users },
   { name: "Utilisateurs", href: "/admin/users", icon: UserCog },
   { name: "Paramètres", href: "/admin/settings", icon: Settings },

@@ -126,3 +126,62 @@ enum CandidatureStatus {
   REFUSEE
   ARCHIVEE
 }
+
+// ============== DEVIS & FACTURES ==============
+
+model Devis {
+  id            String      @id @default(cuid())
+  numero        String      @unique
+  clientNom     String
+  clientEmail   String
+  clientTel     String?
+  clientAdresse String?
+  clientEntreprise String?
+  items         Json
+  sousTotal     Float
+  tva           Float       @default(0)
+  total         Float
+  validite      DateTime
+  notes         String?     @db.Text
+  status        DevisStatus @default(BROUILLON)
+  facture       Facture?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Facture {
+  id            String         @id @default(cuid())
+  numero        String         @unique
+  clientNom     String
+  clientEmail   String
+  clientTel     String?
+  clientAdresse String?
+  clientEntreprise String?
+  items         Json
+  sousTotal     Float
+  tva           Float          @default(0)
+  total         Float
+  echeance      DateTime
+  notes         String?        @db.Text
+  status        FactureStatus  @default(EN_ATTENTE)
+  devisId       String?        @unique
+  devis         Devis?         @relation(fields: [devisId], references: [id])
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+enum DevisStatus {
+  BROUILLON
+  ENVOYE
+  ACCEPTE
+  REFUSE
+  EXPIRE
+}
+
+enum FactureStatus {
+  EN_ATTENTE
+  PAYEE
+  PARTIELLEMENT_PAYEE
+  EN_RETARD
+  ANNULEE
+}
