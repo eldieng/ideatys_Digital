@@ -30,7 +30,7 @@ export async function GET(
     return NextResponse.json({ error: "Devis non trouvé" }, { status: 404 });
   }
 
-  const items = devis.items as DevisItem[];
+  const items = devis.items as unknown as DevisItem[];
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("fr-FR", {

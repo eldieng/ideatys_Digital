@@ -38,7 +38,7 @@ export async function GET(
     return NextResponse.json({ error: "Facture non trouvée" }, { status: 404 });
   }
 
-  const items = facture.items as FactureItem[];
+  const items = facture.items as unknown as FactureItem[];
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("fr-FR", {
