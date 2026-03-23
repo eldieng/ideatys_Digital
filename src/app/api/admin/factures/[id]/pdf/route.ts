@@ -57,6 +57,7 @@ export async function GET(
 
   const tvaAmount = (facture.sousTotal * facture.tva) / 100;
   const statusColor = facture.status === "PAYEE" ? "#22c55e" : facture.status === "EN_RETARD" ? "#ef4444" : "#E85D04";
+  const baseUrl = process.env.NEXTAUTH_URL || "https://ideatysdigital.com";
 
   const html = `
 <!DOCTYPE html>
@@ -68,9 +69,12 @@ export async function GET(
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 14px; color: #333; line-height: 1.5; }
     .container { max-width: 800px; margin: 0 auto; padding: 40px; }
+    .print-bar { background: #003049; color: white; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; }
+    .print-bar h2 { font-size: 16px; font-weight: 500; }
+    .print-btn { background: #E85D04; color: white; border: none; padding: 10px 24px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+    .print-btn:hover { background: #d14d00; }
     .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 3px solid #003049; padding-bottom: 20px; }
-    .logo { font-size: 24px; font-weight: bold; color: #003049; }
-    .logo span { color: #E85D04; }
+    .logo-img { height: 50px; width: auto; }
     .company-info { text-align: right; font-size: 12px; color: #666; }
     .document-title { text-align: center; margin-bottom: 30px; }
     .document-title h1 { font-size: 28px; color: #003049; margin-bottom: 5px; }
@@ -96,14 +100,28 @@ export async function GET(
     .payment-info h3 { font-size: 14px; color: #003049; margin-bottom: 10px; }
     .footer { margin-top: 50px; text-align: center; font-size: 11px; color: #999; border-top: 1px solid #eee; padding-top: 20px; }
     .echeance { display: inline-block; background: #003049; color: white; padding: 8px 20px; border-radius: 20px; font-weight: 600; margin-top: 20px; }
-    @media print { body { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
+    @media print { 
+      body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .print-bar { display: none !important; }
+    }
   </style>
 </head>
 <body>
+  <div class="print-bar">
+    <h2>Facture ${facture.numero} - Aperçu</h2>
+    <button class="print-btn" onclick="window.print()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Télécharger PDF
+    </button>
+  </div>
   <div class="container">
     <div class="header">
       <div>
-        <div class="logo">IDEATYS <span>Digital</span></div>
+        <img src="${baseUrl}/img/ideatysdigital_logo_sans_fond.png" alt="IDEATYS Digital" class="logo-img" />
         <p style="margin-top: 10px; color: #666;">Agence Digitale au Sénégal</p>
       </div>
       <div class="company-info">
