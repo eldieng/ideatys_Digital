@@ -70,9 +70,9 @@ export default function Header() {
 
           {/* Desktop Navigation - Centered, Hidden in presentation mode */}
           {!siteConfig.PRESENTATION_MODE && (
-            <div className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+            <div className="hidden lg:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
               {mainNavigation
-                .filter((item) => item.label !== "Accueil")
+                .filter((item) => !["Accueil", "Candidature", "Contact"].includes(item.label))
                 .map((item) => (
                   <div
                     key={item.href}
@@ -115,6 +115,25 @@ export default function Header() {
                     )}
                   </div>
                 ))}
+            </div>
+          )}
+
+          {/* Right side actions - Hidden in presentation mode */}
+          {!siteConfig.PRESENTATION_MODE && (
+            <div className="hidden lg:flex items-center gap-4">
+              <Link
+                href="/candidature"
+                className={cn(
+                  "text-sm font-medium transition-colors duration-200",
+                  isActive("/candidature")
+                    ? "text-accent"
+                    : "text-primary hover:text-accent"
+                )}
+              >
+                Candidature
+              </Link>
+
+              <div className="w-px h-5 bg-gray-300" />
 
               <Button href="/contact" variant="primary" size="sm" className="whitespace-nowrap">
                 Demander un devis
