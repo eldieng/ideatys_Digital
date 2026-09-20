@@ -88,7 +88,7 @@ export default function MaquetteHero({
         className={cn("relative w-full overflow-hidden bg-[#00352c]", className)}
       >
         {src ? (
-          <div className="relative w-full aspect-[21/9] sm:aspect-[2.4/1] max-h-[420px]">
+          <div className="relative w-full h-[160px] sm:h-[200px] md:h-[240px] lg:h-[280px]">
             <Image
               src={src}
               alt={alt}
@@ -105,7 +105,7 @@ export default function MaquetteHero({
             />
           </div>
         ) : null}
-        <div className="relative z-10 w-full px-6 py-14 sm:py-16 md:py-20 text-center text-white">
+        <div className="relative z-10 w-full px-6 py-8 sm:py-9 md:py-10 text-center text-white">
           <div className="max-w-3xl mx-auto">{children}</div>
         </div>
       </section>
@@ -117,7 +117,7 @@ export default function MaquetteHero({
       <section
         className={cn("relative w-full overflow-hidden bg-[#00352c]", className)}
       >
-        <div className="relative w-full min-h-[300px] sm:min-h-[360px] md:min-h-[420px] lg:aspect-[1062/493] flex items-center justify-center">
+        <div className="relative w-full min-h-[220px] sm:min-h-[260px] md:min-h-[300px] lg:min-h-[340px] flex items-center justify-center">
           {src ? (
             <Image
               src={src}
@@ -129,7 +129,7 @@ export default function MaquetteHero({
             />
           ) : null}
           <div className="absolute inset-0 bg-[#00352c]/40" aria-hidden />
-          <div className="relative z-10 w-full max-w-4xl mx-auto px-6 py-16 sm:py-20 text-center text-white">
+          <div className="relative z-10 w-full max-w-4xl mx-auto px-6 py-10 sm:py-12 md:py-14 text-center text-white">
             {children}
           </div>
         </div>
