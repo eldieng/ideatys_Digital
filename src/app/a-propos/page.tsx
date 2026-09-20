@@ -33,18 +33,28 @@ const iconMap: Record<string, React.ReactNode> = {
 export default function AProposPage() {
   return (
     <MainLayout>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-primary text-white">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
+      {/* Hero avec maquette en fond */}
+      <section className="relative py-20 md:py-28 text-white overflow-hidden">
+        {/* Maquette en fond */}
+        <div className="absolute inset-0 w-full h-full">
+          <Image
+            src="/img/A_propos_2d05.png"
+            alt="À propos d'IDEATYS Digital - Agence digitale créative à Dakar, Sénégal"
+            fill
+            className="object-cover object-center"
+          />
+        </div>
+        
+        <Container className="relative z-10">
+          <div className="max-w-2xl">
             <AnimatedSection>
-              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4">
+              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4 bg-primary/30 px-3 py-1 rounded">
                 À propos
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white drop-shadow-lg">
                 Une agence digitale animée par la passion
               </h1>
-              <p className="mt-6 text-lg text-white/70">
+              <p className="mt-6 text-lg text-white/90 drop-shadow">
                 Depuis notre création, nous accompagnons les entreprises dans
                 leur transformation digitale avec créativité et expertise.
               </p>

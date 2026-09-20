@@ -8,17 +8,22 @@ import Container from "@/components/ui/Container";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center bg-linear-to-br from-white via-white to-gray-light overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 right-10 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-white">
+      {/* Maquette en fond pleine largeur */}
+      <div className="absolute inset-0 w-full h-full">
+        <Image
+          src="/img/Home_page_4f45.png"
+          alt="Agence digitale à Dakar - Solutions web, stratégie digitale et cybersécurité pour entreprises au Sénégal"
+          fill
+          className="object-cover object-center"
+          priority
+        />
       </div>
 
       <Container className="relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
-          {/* Left column - Text content */}
-          <div className="text-center lg:text-left">
+        <div className="py-20 lg:py-32">
+          {/* Texte posé sur la zone gauche claire de la maquette */}
+          <div className="max-w-2xl text-center lg:text-left">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -79,28 +84,6 @@ export default function HeroSection() {
             </Button>
           </motion.div>
           </div>
-
-          {/* Right column - Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.4,
-              ease: [0.21, 0.47, 0.32, 0.98],
-            }}
-            className="relative hidden lg:block"
-          >
-            <div className="relative w-full aspect-[4/3]">
-              <Image
-                src="/img/Home_page_4f45.png"
-                alt="Agence digitale à Dakar - Solutions web, stratégie digitale et cybersécurité pour entreprises au Sénégal"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </motion.div>
         </div>
 
         {/* Scroll indicator */}

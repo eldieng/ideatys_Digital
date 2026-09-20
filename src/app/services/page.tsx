@@ -40,40 +40,36 @@ export default async function ServicesPage() {
   });
   return (
     <MainLayout>
-      {/* Hero with gradient and decorative elements */}
-      <section className="relative py-24 md:py-32 lg:py-40 bg-linear-to-br from-primary via-primary-dark to-primary overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl" />
+      {/* Hero avec maquette en fond */}
+      <section className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
+        {/* Maquette en fond pleine largeur */}
+        <div className="absolute inset-0 w-full h-full">
+          <Image
+            src="/img/SERVICES_WST_825e.png"
+            alt="Services digitaux au Sénégal - Développement web, stratégie digitale, community management et cybersécurité à Dakar"
+            fill
+            className="object-cover object-center"
+          />
         </div>
         
         <Container className="relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <AnimatedSection>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-accent text-sm font-semibold mb-6">
-                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                Nos services
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white">
-                Des solutions digitales sur mesure,
-                <span className="block text-accent">pensées pour le marché sénégalais et ouest-africain</span>
-              </h1>
-              <p className="mt-8 text-lg md:text-xl text-white/70">
-                De la stratégie à la réalisation, en passant par la sécurité de vos outils numériques : chaque service peut se prendre seul, mais ils sont pensés pour avancer ensemble.
-              </p>
-            </AnimatedSection>
-            
-            <AnimatedSection delay={0.2} className="hidden lg:block">
-              <div className="relative w-full aspect-[4/3]">
-                <Image
-                  src="/img/SERVICES_WST_825e.png"
-                  alt="Services digitaux au Sénégal - Développement web, stratégie digitale, community management et cybersécurité à Dakar"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </AnimatedSection>
+          <div className="flex justify-end">
+            {/* Texte posé sur la zone verte droite de la maquette */}
+            <div className="max-w-2xl text-left lg:text-left">
+              <AnimatedSection>
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-accent text-sm font-semibold mb-6">
+                  <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                  Nos services
+                </span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white">
+                  Des solutions digitales sur mesure,
+                  <span className="block text-accent">pensées pour le marché sénégalais et ouest-africain</span>
+                </h1>
+                <p className="mt-8 text-lg md:text-xl text-white/70">
+                  De la stratégie à la réalisation, en passant par la sécurité de vos outils numériques : chaque service peut se prendre seul, mais ils sont pensés pour avancer ensemble.
+                </p>
+              </AnimatedSection>
+            </div>
           </div>
         </Container>
       </section>

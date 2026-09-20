@@ -37,32 +37,31 @@ const perks = [
 export default function CandidaturePage() {
   return (
     <MainLayout>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-primary text-white">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* Hero avec maquette en fond */}
+      <section className="relative py-20 md:py-28 text-white overflow-hidden">
+        {/* Maquette en fond */}
+        <div className="absolute inset-0 w-full h-full">
+          <Image
+            src="/img/Rejoindre_Nous_342b.png"
+            alt="Rejoindre IDEATYS Digital - Carrières et opportunités dans une agence digitale à Dakar"
+            fill
+            className="object-cover object-center"
+          />
+        </div>
+        
+        <Container className="relative z-10">
+          <div className="max-w-2xl">
             <AnimatedSection>
-              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4">
+              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4 bg-primary/40 px-3 py-1 rounded">
                 Rejoignez-nous
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white drop-shadow-lg">
                 Rejoignez IDEATYS Digital
               </h1>
-              <p className="mt-6 text-lg text-white/70">
+              <p className="mt-6 text-lg text-white/90 drop-shadow">
                 Participez à des projets innovants et donnez un nouvel élan à
                 votre carrière.
               </p>
-            </AnimatedSection>
-            
-            <AnimatedSection delay={0.2} className="hidden lg:block">
-              <div className="relative w-full aspect-[4/3]">
-                <Image
-                  src="/img/Rejoindre_Nous_342b.png"
-                  alt="Rejoindre IDEATYS Digital - Carrières et opportunités dans une agence digitale à Dakar"
-                  fill
-                  className="object-contain"
-                />
-              </div>
             </AnimatedSection>
           </div>
         </Container>

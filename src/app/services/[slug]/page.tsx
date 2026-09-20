@@ -72,42 +72,42 @@ export default async function ServicePage({
         ]}
       />
 
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-primary text-white">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* Hero avec maquette en fond */}
+      <section className="relative py-20 md:py-28 text-white overflow-hidden">
+        {(() => {
+          const imageMap: Record<string, string> = {
+            'strategie-digitale': '/img/S_DIGITAL_7299.png',
+            'developpement-web': '/img/DEV_WEB_1a8c.png',
+            'community-management': '/img/C_MANAGER_fce4.png',
+            'production-audiovisuelle': '/img/P_AUDIOVISUEL_b690.png',
+            'design-graphique': '/img/D_GRAPHIC_a81f.png',
+            'print-impression': '/img/Print_Impression_74c7.png',
+          };
+          const imageSrc = imageMap[service.slug];
+          
+          return imageSrc ? (
+            <div className="absolute inset-0 w-full h-full">
+              <Image
+                src={imageSrc}
+                alt={`${service.title} - Services digitaux IDEATYS à Dakar, Sénégal`}
+                fill
+                className="object-cover object-center"
+              />
+            </div>
+          ) : (
+            <div className="absolute inset-0 w-full h-full bg-linear-to-br from-primary via-primary-dark to-primary" />
+          );
+        })()}
+        
+        <Container className="relative z-10">
+          <div className="max-w-3xl">
             <AnimatedSection>
               <div className="text-accent mb-6">{iconMap[service.icon]}</div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 {service.title}
               </h1>
-              <p className="mt-6 text-lg text-white/70">{service.description}</p>
+              <p className="mt-6 text-lg text-white/90">{service.description}</p>
             </AnimatedSection>
-            
-            {(() => {
-              const imageMap: Record<string, string> = {
-                'strategie-digitale': '/img/S_DIGITAL_7299.png',
-                'developpement-web': '/img/DEV_WEB_1a8c.png',
-                'community-management': '/img/C_MANAGER_fce4.png',
-                'production-audiovisuelle': '/img/P_AUDIOVISUEL_b690.png',
-                'design-graphique': '/img/D_GRAPHIC_a81f.png',
-                'print-impression': '/img/Print_Impression_74c7.png',
-              };
-              const imageSrc = imageMap[service.slug];
-              
-              return imageSrc ? (
-                <AnimatedSection delay={0.2} className="hidden lg:block">
-                  <div className="relative w-full aspect-[4/3]">
-                    <Image
-                      src={imageSrc}
-                      alt={`${service.title} - Services digitaux IDEATYS à Dakar, Sénégal`}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                </AnimatedSection>
-              ) : null;
-            })()}
           </div>
         </Container>
       </section>
