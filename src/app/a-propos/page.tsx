@@ -5,7 +5,7 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import CTASection from "@/components/sections/CTASection";
-import MaquetteHero from "@/components/ui/MaquetteHero";
+import MaquetteHero, { HeroBadge } from "@/components/ui/MaquetteHero";
 import { values } from "@/data/stats";
 import { team } from "@/data/team";
 import {
@@ -38,18 +38,19 @@ export default function AProposPage() {
         src="/img/A_propos_2d05.png"
         alt="À propos d'IDEATYS Digital — agence digitale à Dakar"
         textSide="left"
-        textWidthPercent={40}
+        textWidthPercent={44}
       >
         <AnimatedSection>
-          <span className="inline-block text-[clamp(0.6rem,1vw,0.8rem)] font-semibold uppercase tracking-wider text-accent mb-[0.55em]">
-            À propos
-          </span>
-          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.1rem,2.5vw,2.5rem)] drop-shadow-md">
-            Une agence digitale animée par la passion
+          <HeroBadge>À propos</HeroBadge>
+          <h1 className="font-bold leading-[1.15] text-white text-[clamp(1.15rem,2.55vw,2.65rem)]">
+            Une agence digitale animée par la{" "}
+            <span className="text-accent">passion</span> de créer et d&apos;
+            <span className="text-accent">impacter.</span>
           </h1>
-          <p className="mt-[0.65em] text-white/90 leading-snug text-[clamp(0.65rem,1.15vw,1rem)] max-w-[34ch]">
-            Nous accompagnons les entreprises dans leur transformation digitale
-            avec créativité et expertise, depuis Dakar.
+          <p className="mt-[0.75em] text-white/90 leading-snug text-[clamp(0.65rem,1.15vw,1.05rem)] max-w-[36ch]">
+            Depuis notre création, nous accompagnons les entreprises dans leur
+            transformation digitale en combinant créativité, stratégie et
+            expertise.
           </p>
         </AnimatedSection>
       </MaquetteHero>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import MaquetteHero from "@/components/ui/MaquetteHero";
+import MaquetteHero, { HeroBadge } from "@/components/ui/MaquetteHero";
 import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
 import AnimatedSection from "@/components/ui/AnimatedSection";
@@ -41,17 +41,16 @@ export default function CandidaturePage() {
         src="/img/Rejoindre_Nous_342b.png"
         alt="Rejoindre Ideatys Digital — candidatures à Dakar"
         textSide="left"
-        textWidthPercent={40}
+        textWidthPercent={42}
       >
         <AnimatedSection>
-          <span className="inline-block text-[clamp(0.6rem,1vw,0.8rem)] font-semibold uppercase tracking-wider text-accent mb-[0.55em]">
-            Carrières
-          </span>
-          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.1rem,2.5vw,2.5rem)] drop-shadow-md">
-            Rejoignez l&apos;équipe Ideatys
+          <HeroBadge>Rejoignez-nous</HeroBadge>
+          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.15rem,2.55vw,2.55rem)]">
+            Rejoignez l&apos;équipe{" "}
+            <span className="text-accent">Ideatys</span>
           </h1>
-          <p className="mt-[0.65em] text-white/90 leading-snug text-[clamp(0.65rem,1.15vw,1rem)] max-w-[34ch]">
-            Envie de construire des projets digitaux qui comptent, depuis Dakar ?
+          <p className="mt-[0.75em] text-white/90 leading-snug text-[clamp(0.65rem,1.15vw,1.05rem)] max-w-[36ch]">
+            Envie de construire des projets digitaux qui comptent, depuis Dakar&nbsp;?
             Parlez-nous de vous.
           </p>
         </AnimatedSection>

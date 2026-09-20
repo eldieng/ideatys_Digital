@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { HeroBadge } from "@/components/ui/MaquetteHero";
 
 /**
- * Hero = maquette WEB SITE NUL (1062×493) comme canvas.
- * Le texte HTML est posé sur la zone claire à gauche — pas une colonne séparée.
+ * Hero accueil = maquette WEB SITE NUL + texte HTML style Copie.
  */
 export default function HeroSection() {
   return (
@@ -22,29 +22,27 @@ export default function HeroSection() {
           priority
         />
 
-        {/* Texte sur la zone gauche claire de la maquette (~45%) */}
         <div className="absolute inset-0 z-10">
-          <div className="h-full max-w-7xl mx-auto px-[4%] sm:px-[5%] lg:px-[6%] flex items-center">
-            <div className="w-[48%] min-w-[11.5rem] max-w-xl">
-              <motion.p
+          <div className="h-full max-w-[90rem] mx-auto px-[4%] sm:px-[5%] flex items-center">
+            <div className="w-[46%] min-w-[11rem] max-w-[30rem] pr-[2%]">
+              <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}
-                className="text-[clamp(0.55rem,1.1vw,0.8rem)] font-semibold uppercase tracking-[0.16em] text-accent mb-[0.6em]"
               >
-                Agence digitale créative · Dakar
-              </motion.p>
+                <HeroBadge tone="light">Agence digitale créative</HeroBadge>
+              </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.06 }}
-                className="font-bold text-primary leading-[1.1] tracking-tight text-[clamp(0.95rem,2.6vw,2.75rem)]"
+                className="font-bold text-primary leading-[1.12] tracking-tight text-[clamp(1rem,2.55vw,2.7rem)]"
               >
-                Des solutions digitales
-                <span className="block">qui font vraiment</span>
-                <span className="block text-accent">la différence.</span>
-                <span className="block mt-[0.25em] text-[0.78em] font-semibold text-primary/85">
+                <span className="text-primary">Créativité.</span>{" "}
+                <span className="text-accent">Professionnalisme.</span>{" "}
+                <span className="text-primary">Impact.</span>
+                <span className="block mt-[0.35em] text-[0.72em] font-semibold text-primary/90">
                   À Dakar &amp; en Afrique de l&apos;Ouest
                 </span>
               </motion.h1>
@@ -53,10 +51,10 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.14 }}
-                className="mt-[0.7em] text-[clamp(0.55rem,1.15vw,1rem)] text-gray-dark leading-snug max-w-[36ch] hidden xs:block sm:block"
+                className="mt-[0.7em] text-[clamp(0.58rem,1.15vw,1rem)] text-gray-dark leading-snug max-w-[36ch]"
               >
-                Sites web, stratégie, communication et cybersécurité — pour les
-                entreprises qui grandissent depuis le Sénégal ou à l&apos;international.
+                Nous transformons vos idées en solutions digitales performantes
+                et durables — sites, stratégie, communication et cybersécurité.
               </motion.p>
 
               <motion.div
@@ -92,7 +90,7 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.4 }}
-        className="flex justify-center py-2"
+        className="flex justify-center py-2 bg-white"
       >
         <motion.div
           animate={{ y: [0, 5, 0] }}

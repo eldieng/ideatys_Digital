@@ -16,7 +16,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import Button from "@/components/ui/Button";
 import CTASection from "@/components/sections/CTASection";
-import MaquetteHero from "@/components/ui/MaquetteHero";
+import MaquetteHero, { HeroBadge } from "@/components/ui/MaquetteHero";
 import { services } from "@/data/services";
 import { ArrowRight } from "lucide-react";
 
@@ -109,16 +109,17 @@ export default async function ServicePage({
             src={imageSrc}
             alt={`${service.title} — services digitaux Ideatys à Dakar, Sénégal`}
             textSide="left"
-            textWidthPercent={36}
+            textWidthPercent={40}
           >
             <AnimatedSection>
-              <div className="text-accent mb-[0.55em] scale-75 origin-left md:scale-90 lg:scale-100">
+              <HeroBadge>Nos services</HeroBadge>
+              <div className="text-accent mb-[0.45em] scale-75 origin-left sm:scale-90 lg:scale-100">
                 {iconMap[service.icon]}
               </div>
-              <h1 className="font-bold text-white leading-[1.12] tracking-tight text-[clamp(0.95rem,2.2vw,2.1rem)] drop-shadow-md">
+              <h1 className="font-bold text-white leading-[1.12] tracking-tight text-[clamp(1rem,2.35vw,2.35rem)]">
                 {service.title}
               </h1>
-              <p className="mt-[0.65em] text-white/90 leading-snug text-[clamp(0.6rem,1.05vw,0.95rem)] max-w-[32ch]">
+              <p className="mt-[0.7em] text-white/90 leading-snug text-[clamp(0.62rem,1.1vw,1rem)] max-w-[34ch]">
                 {subtitle}
               </p>
             </AnimatedSection>

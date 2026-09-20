@@ -14,7 +14,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import CTASection from "@/components/sections/CTASection";
-import MaquetteHero from "@/components/ui/MaquetteHero";
+import MaquetteHero, { HeroBadge } from "@/components/ui/MaquetteHero";
 import prisma from "@/lib/prisma";
 
 export const metadata: Metadata = {
@@ -48,19 +48,14 @@ export default async function ServicesPage() {
         priority
       >
         <AnimatedSection>
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-accent text-[clamp(0.6rem,1vw,0.8rem)] font-semibold mb-[0.7em]">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            Nos services
-          </span>
-          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.1rem,2.6vw,2.6rem)] drop-shadow-md">
-            Des solutions digitales sur mesure,
-            <span className="block text-accent">
-              pensées pour le marché sénégalais
-            </span>
+          <HeroBadge>Nos services</HeroBadge>
+          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.15rem,2.55vw,2.55rem)]">
+            Des solutions digitales{" "}
+            <span className="text-accent">sur mesure</span>
           </h1>
-          <p className="mt-[0.7em] text-white/80 leading-snug text-[clamp(0.65rem,1.15vw,1rem)] max-w-[36ch]">
-            De la stratégie à la cybersécurité : chaque offre peut se prendre seule,
-            mais elles sont conçues pour avancer ensemble.
+          <p className="mt-[0.75em] text-white/85 leading-snug text-[clamp(0.65rem,1.15vw,1.05rem)] max-w-[36ch]">
+            De la stratégie à la réalisation, nous couvrons vos besoins digitaux
+            avec expertise et créativité — à Dakar et en Afrique de l&apos;Ouest.
           </p>
         </AnimatedSection>
       </MaquetteHero>
