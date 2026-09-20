@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
-import AnimatedSection from "@/components/ui/AnimatedSection";
 import CTASection from "@/components/sections/CTASection";
 import PortfolioGrid from "@/components/sections/PortfolioGrid";
-import MaquetteHero, { HeroBadge } from "@/components/ui/MaquetteHero";
 
 export const metadata: Metadata = {
   title: "Réalisations",
@@ -15,26 +14,19 @@ export const metadata: Metadata = {
 export default function RealisationsPage() {
   return (
     <MainLayout>
-      <MaquetteHero
-        src="/img/portfolio_df12.png"
-        alt="Réalisations Ideatys Digital — portfolio à Dakar"
-        align="center"
-        priority
-      >
-        <AnimatedSection>
-          <div className="flex justify-center">
-            <HeroBadge>Portfolio</HeroBadge>
-          </div>
-          <h1 className="font-bold leading-[1.15] text-white text-[clamp(1.75rem,3.5vw,3.25rem)] mt-2">
-            Ils nous ont fait{" "}
-            <span className="text-accent">confiance</span>
-          </h1>
-          <p className="mt-4 mx-auto text-white/90 leading-relaxed text-[clamp(1rem,1.55vw,1.25rem)] max-w-2xl">
-            De la stratégie à la réalisation, nous couvrons tous vos besoins
-            digitaux avec expertise et créativité.
-          </p>
-        </AnimatedSection>
-      </MaquetteHero>
+      {/* Maquette Portfolio déjà complète (texte inclus) — pas d'overlay HTML */}
+      <section className="relative w-full overflow-hidden bg-[#00352c]">
+        <div className="relative w-full aspect-[1062/493]">
+          <Image
+            src="/img/portfolio_df12.png"
+            alt="Ils nous ont fait confiance — portfolio Ideatys Digital à Dakar"
+            fill
+            className="object-contain object-center"
+            sizes="100vw"
+            priority
+          />
+        </div>
+      </section>
 
       <section className="py-20 md:py-28 bg-gray-light">
         <Container>
