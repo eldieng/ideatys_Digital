@@ -17,11 +17,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "IDEATYS Digital | Agence Digitale Créative",
+    default: "IDEATYS Digital – Agence Digitale à Dakar, Sénégal",
     template: "%s | IDEATYS Digital",
   },
   description:
-    "Agence digitale à Dakar, Sénégal. Création de sites web, stratégie digitale, community management, production audiovisuelle et design graphique. Transformez vos idées en solutions digitales performantes.",
+    "Agence digitale à Dakar : création de sites web, stratégie digitale, community management et cybersécurité (KC Radar) pour l'Afrique de l'Ouest.",
   keywords: [
     "agence digitale Dakar",
     "agence de communication Dakar",
@@ -31,12 +31,20 @@ export const metadata: Metadata = {
     "agence web Sénégal",
     "création site web Dakar",
     "développement web Sénégal",
+    "développement application",
     "community management Dakar",
     "design graphique Sénégal",
     "production audiovisuelle Dakar",
     "stratégie digitale Sénégal",
     "branding Dakar",
+    "cybersécurité Sénégal",
+    "KC Radar",
+    "formation digitale Sénégal",
+    "SaaS",
+    "ERP",
+    "CRM",
     "agence communication Afrique",
+    "Afrique de l'Ouest",
     "IDEATYS Digital",
   ],
   authors: [{ name: "IDEATYS Digital" }],
@@ -48,7 +56,7 @@ export const metadata: Metadata = {
     siteName: "IDEATYS Digital",
     title: "IDEATYS Digital | Agence Digitale à Dakar, Sénégal",
     description:
-      "Agence digitale à Dakar. Création de sites web, community management, production audiovisuelle et design graphique au Sénégal.",
+      "Agence digitale à Dakar : création de sites web, stratégie digitale, community management et cybersécurité (KC Radar) pour l'Afrique de l'Ouest.",
   },
   twitter: {
     card: "summary_large_image",

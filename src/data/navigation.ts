@@ -19,6 +19,7 @@ export const mainNavigation: NavItem[] = [
       },
       { label: "Design graphique", href: "/services/design-graphique" },
       { label: "Print & impression", href: "/services/print-impression" },
+      { label: "KC Radar — Cybersécurité", href: "/services/kc-radar" },
     ],
   },
   { label: "Réalisations", href: "/realisations" },
@@ -38,6 +39,7 @@ export const footerNavigation = {
     },
     { label: "Design graphique", href: "/services/design-graphique" },
     { label: "Print & impression", href: "/services/print-impression" },
+    { label: "KC Radar — Cybersécurité", href: "/services/kc-radar" },
   ],
   entreprise: [
     { label: "À propos", href: "/a-propos" },

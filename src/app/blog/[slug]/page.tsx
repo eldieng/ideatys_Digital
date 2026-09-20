@@ -29,7 +29,7 @@ export async function generateStaticParams() {
     where: { published: true },
     select: { slug: true },
   });
-  return articles.map((article) => ({
+  return articles.map((article: any) => ({
     slug: article.slug,
   }));
 }
@@ -191,7 +191,7 @@ export default async function BlogArticlePage({
               </h2>
             </AnimatedSection>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {otherArticles.map((related, index) => (
+              {otherArticles.map((related: any, index: number) => (
                 <AnimatedSection key={related.slug} delay={index * 0.15}>
                   <Link
                     href={`/blog/${related.slug}`}

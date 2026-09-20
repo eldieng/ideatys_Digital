@@ -50,12 +50,12 @@ export default async function FacturesPage() {
   };
 
   const totalEnAttente = factures
-    .filter((f) => f.status === "EN_ATTENTE" || f.status === "EN_RETARD")
-    .reduce((sum, f) => sum + f.total, 0);
+    .filter((f: any) => f.status === "EN_ATTENTE" || f.status === "EN_RETARD")
+    .reduce((sum: number, f: any) => sum + f.total, 0);
 
   const totalPayee = factures
-    .filter((f) => f.status === "PAYEE")
-    .reduce((sum, f) => sum + f.total, 0);
+    .filter((f: any) => f.status === "PAYEE")
+    .reduce((sum: number, f: any) => sum + f.total, 0);
 
   return (
     <div>
@@ -82,7 +82,7 @@ export default async function FacturesPage() {
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <p className="text-sm text-gray-600">En attente</p>
           <p className="text-2xl font-bold text-yellow-600">
-            {factures.filter((f) => f.status === "EN_ATTENTE").length}
+            {factures.filter((f: any) => f.status === "EN_ATTENTE").length}
           </p>
         </div>
         <div className="bg-white rounded-xl p-4 border border-gray-200">
@@ -142,7 +142,7 @@ export default async function FacturesPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {factures.map((facture) => (
+                {factures.map((facture: any) => (
                   <tr key={facture.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="font-mono font-semibold text-primary">

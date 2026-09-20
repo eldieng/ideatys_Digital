@@ -22,7 +22,7 @@ export default function HeroSection() {
             transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
             <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-6">
-              Agence Digitale Créative
+              Agence Digitale à Dakar
             </span>
           </motion.div>
 
@@ -36,9 +36,8 @@ export default function HeroSection() {
             }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary leading-tight"
           >
-            Créativité.{" "}
-            <span className="text-accent">Professionnalisme.</span>{" "}
-            Impact.
+            Des solutions digitales qui font{" "}
+            <span className="text-accent">vraiment la différence</span>, à Dakar et en Afrique de l&apos;Ouest
           </motion.h1>
 
           <motion.p
@@ -51,8 +50,7 @@ export default function HeroSection() {
             }}
             className="mt-6 text-lg md:text-xl text-gray-dark max-w-2xl mx-auto leading-relaxed"
           >
-            Nous transformons vos idées en solutions digitales performantes et
-            durables.
+            Que vous lanciez votre entreprise à Dakar ou que vous développiez votre marque depuis l'Europe ou les États-Unis, IDEATYS Digital conçoit vos sites web, votre stratégie de communication et votre sécurité numérique pour qu'ils servent vraiment votre croissance.
           </motion.p>
 
           <motion.div

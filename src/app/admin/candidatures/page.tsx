@@ -48,14 +48,14 @@ export default async function CandidaturesPage() {
           </div>
         ) : (
           <div className="divide-y divide-gray-200">
-            {candidatures.map((candidature) => (
+            {candidatures.map((candidature: any) => (
               <div key={candidature.id} className="p-6 hover:bg-gray-50">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
                       <h3 className="font-semibold text-gray-900">{candidature.nom}</h3>
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[candidature.status]}`}>
-                        {statusLabels[candidature.status]}
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[candidature.status as keyof typeof statusColors]}`}>
+                        {statusLabels[candidature.status as keyof typeof statusLabels]}
                       </span>
                     </div>
                     

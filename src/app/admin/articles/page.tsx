@@ -67,7 +67,7 @@ export default async function ArticlesPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {articles.map((article) => (
+              {articles.map((article: any) => (
                 <tr key={article.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div>

@@ -67,7 +67,7 @@ export default async function ServicesPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {services.map((service, index) => (
+              {services.map((service: any, index: number) => (
                 <tr key={service.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2 text-gray-400">

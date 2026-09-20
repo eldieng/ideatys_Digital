@@ -7,6 +7,7 @@ import {
   Video,
   Palette,
   Printer,
+  Shield,
   CheckCircle,
 } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
@@ -25,6 +26,7 @@ const iconMap: Record<string, React.ReactNode> = {
   Video: <Video className="w-12 h-12" />,
   Palette: <Palette className="w-12 h-12" />,
   Printer: <Printer className="w-12 h-12" />,
+  Shield: <Shield className="w-12 h-12" />,
 };
 
 export async function generateStaticParams() {

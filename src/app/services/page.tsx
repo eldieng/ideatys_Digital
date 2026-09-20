@@ -7,6 +7,7 @@ import {
   Video,
   Palette,
   Printer,
+  Shield,
   ArrowUpRight,
 } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
@@ -16,9 +17,9 @@ import CTASection from "@/components/sections/CTASection";
 import prisma from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Services Digitaux à Dakar | Web, Stratégie, Cybersécurité",
   description:
-    "Découvrez nos services : stratégie digitale, développement web, community management, production audiovisuelle, design graphique et print.",
+    "Développement web, stratégie digitale, community management, design, print et cybersécurité : découvrez les services d'IDEATYS Digital au Sénégal.",
 };
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -28,6 +29,7 @@ const iconMap: Record<string, React.ReactNode> = {
   Video: <Video className="w-10 h-10" />,
   Palette: <Palette className="w-10 h-10" />,
   Printer: <Printer className="w-10 h-10" />,
+  Shield: <Shield className="w-10 h-10" />,
 };
 
 export default async function ServicesPage() {
@@ -53,12 +55,11 @@ export default async function ServicesPage() {
                 Nos services
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white">
-                Des solutions digitales
-                <span className="block text-accent">sur mesure</span>
+                Des solutions digitales sur mesure,
+                <span className="block text-accent">pensées pour le marché sénégalais et ouest-africain</span>
               </h1>
               <p className="mt-8 text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
-                De la stratégie à la réalisation, nous couvrons tous vos besoins
-                digitaux avec expertise et créativité.
+                De la stratégie à la réalisation, en passant par la sécurité de vos outils numériques : chaque service peut se prendre seul, mais ils sont pensés pour avancer ensemble.
               </p>
             </AnimatedSection>
           </div>
