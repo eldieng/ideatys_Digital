@@ -17,19 +17,21 @@ export default function RealisationsPage() {
     <MainLayout>
       <MaquetteHero
         src="/img/portfolio_df12.png"
-        alt="Réalisations Ideatys Digital — projets web et digitaux à Dakar"
-        textSide="left"
-        textWidthPercent={42}
+        alt="Réalisations Ideatys Digital — portfolio à Dakar"
+        align="center"
+        priority
       >
         <AnimatedSection>
-          <HeroBadge>Portfolio</HeroBadge>
-          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.4rem,3.1vw,3rem)]">
-            Nos réalisations qui{" "}
-            <span className="text-accent">inspirent</span>
+          <div className="flex justify-center">
+            <HeroBadge>Portfolio</HeroBadge>
+          </div>
+          <h1 className="font-bold leading-[1.15] text-white text-[clamp(1.6rem,3.4vw,3.25rem)] mt-2">
+            Ils nous ont fait{" "}
+            <span className="text-accent">confiance</span>
           </h1>
-          <p className="mt-[0.75em] text-white/90 leading-snug text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[40ch]">
-            Chaque projet est une histoire unique. Découvrez comment nous aidons
-            nos clients à transformer leurs idées en succès digital, depuis Dakar.
+          <p className="mt-5 mx-auto text-white/90 leading-relaxed text-[clamp(0.95rem,1.5vw,1.25rem)] max-w-2xl">
+            De la stratégie à la réalisation, nous couvrons tous vos besoins
+            digitaux avec expertise et créativité.
           </p>
         </AnimatedSection>
       </MaquetteHero>
