@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type TextSide = "left" | "right";
-type Align = "side" | "center" | "stack";
+type Align = "side" | "center" | "stack" | "bottom";
 
 interface MaquetteHeroProps {
   src?: string;
@@ -80,6 +80,33 @@ export default function MaquetteHero({
   imagePosition = "center",
 }: MaquetteHeroProps) {
   const width = Math.min(Math.max(textWidthPercent, 30), 52);
+
+  /* Texte centré dans la zone basse de la maquette (Blog NUL) */
+  if (align === "bottom") {
+    return (
+      <section
+        className={cn("relative w-full overflow-hidden bg-[#00352c]", className)}
+      >
+        <div className="relative w-full aspect-[1062/493]">
+          {src ? (
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              className="object-contain object-center"
+              sizes="100vw"
+              priority={priority}
+            />
+          ) : null}
+          <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-center pb-[4%] sm:pb-[5%] md:pb-[6%] px-4">
+            <div className="w-full max-w-3xl text-center text-white pt-[2%]">
+              {children}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   /* Image en haut + texte centré dans un bloc vert en dessous */
   if (align === "stack") {

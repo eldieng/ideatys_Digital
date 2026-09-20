@@ -17,16 +17,15 @@ export default function BlogPage() {
       <MaquetteHero
         src="/img/BLOG_7a1e.png"
         alt="Blog Ideatys Digital — actualités et expertise digitale à Dakar"
-        align="stack"
-        imagePosition="top"
+        align="bottom"
         priority
       >
         <AnimatedSection>
           <HeroBadge tone="orange">Blog</HeroBadge>
-          <h1 className="font-bold leading-[1.15] text-white text-[clamp(1.75rem,3.5vw,3.25rem)]">
+          <h1 className="font-bold leading-[1.15] text-white text-[clamp(1.6rem,3.2vw,3rem)]">
             Actualités &amp; Expertise
           </h1>
-          <p className="mt-5 mx-auto text-white/90 leading-relaxed text-[clamp(1rem,1.55vw,1.25rem)] max-w-2xl">
+          <p className="mt-3 mx-auto text-white/90 leading-relaxed text-[clamp(0.95rem,1.4vw,1.2rem)] max-w-2xl">
             Articles, conseils et retours d&apos;expérience pour booster votre
             présence digitale.
           </p>
