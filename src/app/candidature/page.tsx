@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
 import AnimatedSection from "@/components/ui/AnimatedSection";
@@ -39,7 +40,7 @@ export default function CandidaturePage() {
       {/* Hero */}
       <section className="py-20 md:py-28 bg-primary text-white">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
               <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4">
                 Rejoignez-nous
@@ -51,6 +52,17 @@ export default function CandidaturePage() {
                 Participez à des projets innovants et donnez un nouvel élan à
                 votre carrière.
               </p>
+            </AnimatedSection>
+            
+            <AnimatedSection delay={0.2} className="hidden lg:block">
+              <div className="relative w-full aspect-[4/3]">
+                <Image
+                  src="/img/Rejoindre_Nous_342b.png"
+                  alt="Rejoindre IDEATYS Digital - Carrières et opportunités dans une agence digitale à Dakar"
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </AnimatedSection>
           </div>
         </Container>

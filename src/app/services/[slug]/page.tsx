@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import {
   Target,
   Code,
@@ -74,7 +75,7 @@ export default async function ServicePage({
       {/* Hero */}
       <section className="py-20 md:py-28 bg-primary text-white">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
               <div className="text-accent mb-6">{iconMap[service.icon]}</div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
@@ -82,6 +83,31 @@ export default async function ServicePage({
               </h1>
               <p className="mt-6 text-lg text-white/70">{service.description}</p>
             </AnimatedSection>
+            
+            {(() => {
+              const imageMap: Record<string, string> = {
+                'strategie-digitale': '/img/S_DIGITAL_7299.png',
+                'developpement-web': '/img/DEV_WEB_1a8c.png',
+                'community-management': '/img/C_MANAGER_fce4.png',
+                'production-audiovisuelle': '/img/P_AUDIOVISUEL_b690.png',
+                'design-graphique': '/img/D_GRAPHIC_a81f.png',
+                'print-impression': '/img/Print_Impression_74c7.png',
+              };
+              const imageSrc = imageMap[service.slug];
+              
+              return imageSrc ? (
+                <AnimatedSection delay={0.2} className="hidden lg:block">
+                  <div className="relative w-full aspect-[4/3]">
+                    <Image
+                      src={imageSrc}
+                      alt={`${service.title} - Services digitaux IDEATYS à Dakar, Sénégal`}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                </AnimatedSection>
+              ) : null;
+            })()}
           </div>
         </Container>
       </section>
@@ -190,7 +216,11 @@ export default async function ServicePage({
         </Container>
       </section>
 
-      <CTASection />
+      <CTASection 
+        title={`Besoin ${service.slug === 'kc-radar' ? "d'un audit cybersécurité" : service.slug === 'strategie-digitale' ? "d'une stratégie sur mesure" : service.slug === 'developpement-web' ? "d'un site performant" : service.slug === 'community-management' ? "d'animer vos réseaux" : service.slug === 'production-audiovisuelle' ? 'de contenus impactants' : service.slug === 'design-graphique' ? "d'une identité forte" : 'de supports print professionnels'} ?`}
+        description={`Parlons de votre projet ${service.title.toLowerCase()} et trouvons ensemble la solution adaptée à vos objectifs.`}
+        primaryButtonText="Demander un devis"
+      />
     </MainLayout>
   );
 }

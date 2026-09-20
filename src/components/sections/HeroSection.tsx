@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
@@ -15,7 +16,9 @@ export default function HeroSection() {
       </div>
 
       <Container className="relative z-10">
-        <div className="max-w-4xl mx-auto text-center py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
+          {/* Left column - Text content */}
+          <div className="text-center lg:text-left">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -74,6 +77,29 @@ export default function HeroSection() {
             <Button href="/services" variant="outline" size="lg">
               Découvrir nos services
             </Button>
+          </motion.div>
+          </div>
+
+          {/* Right column - Image */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.4,
+              ease: [0.21, 0.47, 0.32, 0.98],
+            }}
+            className="relative hidden lg:block"
+          >
+            <div className="relative w-full aspect-[4/3]">
+              <Image
+                src="/img/Home_page_4f45.png"
+                alt="Agence digitale à Dakar - Solutions web, stratégie digitale et cybersécurité pour entreprises au Sénégal"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
           </motion.div>
         </div>
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Target,
   Code,
@@ -48,7 +49,7 @@ export default async function ServicesPage() {
         </div>
         
         <Container className="relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-accent text-sm font-semibold mb-6">
                 <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
@@ -58,9 +59,20 @@ export default async function ServicesPage() {
                 Des solutions digitales sur mesure,
                 <span className="block text-accent">pensées pour le marché sénégalais et ouest-africain</span>
               </h1>
-              <p className="mt-8 text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
+              <p className="mt-8 text-lg md:text-xl text-white/70">
                 De la stratégie à la réalisation, en passant par la sécurité de vos outils numériques : chaque service peut se prendre seul, mais ils sont pensés pour avancer ensemble.
               </p>
+            </AnimatedSection>
+            
+            <AnimatedSection delay={0.2} className="hidden lg:block">
+              <div className="relative w-full aspect-[4/3]">
+                <Image
+                  src="/img/SERVICES_WST_825e.png"
+                  alt="Services digitaux au Sénégal - Développement web, stratégie digitale, community management et cybersécurité à Dakar"
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </AnimatedSection>
           </div>
         </Container>

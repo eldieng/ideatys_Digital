@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -57,10 +58,13 @@ export default function AProposPage() {
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection direction="left">
-              <div className="aspect-square rounded-2xl bg-gray-light flex items-center justify-center">
-                <span className="text-6xl font-bold text-primary/10">
-                  IDEATYS
-                </span>
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
+                <Image
+                  src="/img/A_propos_2d05.png"
+                  alt="À propos d'IDEATYS Digital - Agence digitale créative à Dakar, Sénégal"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </AnimatedSection>
             <AnimatedSection direction="right">
@@ -167,7 +171,11 @@ export default function AProposPage() {
         </Container>
       </section>
 
-      <CTASection />
+      <CTASection 
+        title="Envie de travailler avec nous ?"
+        description="Rejoignez nos clients satisfaits et donnons ensemble vie à votre vision digitale."
+        primaryButtonText="Discutons de votre projet"
+      />
     </MainLayout>
   );
 }

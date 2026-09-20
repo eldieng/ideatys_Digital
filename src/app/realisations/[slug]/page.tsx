@@ -23,7 +23,7 @@ export async function generateStaticParams() {
     where: { published: true },
     select: { slug: true },
   });
-  return realisations.map((r) => ({ slug: r.slug }));
+  return realisations.map((r: any) => ({ slug: r.slug }));
 }
 
 export async function generateMetadata({
