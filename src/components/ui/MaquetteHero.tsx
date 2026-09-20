@@ -3,18 +3,24 @@ import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type TextSide = "left" | "right";
-type Align = "side" | "center";
+type Align = "side" | "center" | "stack";
 
 interface MaquetteHeroProps {
   src?: string;
   alt?: string;
   textSide?: TextSide;
-  /** side = texte dans la zone libre ; center = titre centré (ex. Portfolio) */
+  /**
+   * side = texte dans la zone libre de la bannière
+   * center = texte centré sur fond maquette
+   * stack = image en haut, bloc texte vert en dessous (Blog / Réalisations)
+   */
   align?: Align;
   textWidthPercent?: number;
   children: ReactNode;
   className?: string;
   priority?: boolean;
+  /** Pour align=stack : quelle partie de l'image montrer (Blog = top) */
+  imagePosition?: "center" | "top" | "bottom";
 }
 
 /** Badge type maquette Ideatys (point orange + label) */
@@ -23,8 +29,19 @@ export function HeroBadge({
   tone = "dark",
 }: {
   children: ReactNode;
-  tone?: "dark" | "light";
+  tone?: "dark" | "light" | "orange";
 }) {
+  if (tone === "orange") {
+    return (
+      <span className="inline-flex items-center justify-center gap-2 mb-4">
+        <span className="w-2 h-2 rounded-full bg-accent shrink-0" aria-hidden />
+        <span className="text-[clamp(0.85rem,1.3vw,1.05rem)] font-bold uppercase tracking-[0.12em] text-accent">
+          {children}
+        </span>
+      </span>
+    );
+  }
+
   const isLight = tone === "light";
   return (
     <span
@@ -49,7 +66,7 @@ export function HeroBadge({
 }
 
 /**
- * Hero = maquette WEB SITE NUL (1062×493) en canvas, ou bandeau centré (Portfolio).
+ * Hero Ideatys — maquettes WEB SITE NUL + texte HTML style Copie.
  */
 export default function MaquetteHero({
   src,
@@ -60,29 +77,58 @@ export default function MaquetteHero({
   children,
   className,
   priority = false,
+  imagePosition = "center",
 }: MaquetteHeroProps) {
   const width = Math.min(Math.max(textWidthPercent, 30), 52);
+
+  /* Image en haut + texte centré dans un bloc vert en dessous */
+  if (align === "stack") {
+    return (
+      <section
+        className={cn("relative w-full overflow-hidden bg-[#00352c]", className)}
+      >
+        {src ? (
+          <div className="relative w-full aspect-[21/9] sm:aspect-[2.4/1] max-h-[420px]">
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              className={
+                imagePosition === "top"
+                  ? "object-cover object-top"
+                  : imagePosition === "bottom"
+                    ? "object-cover object-bottom"
+                    : "object-cover object-center"
+              }
+              sizes="100vw"
+              priority={priority}
+            />
+          </div>
+        ) : null}
+        <div className="relative z-10 w-full px-6 py-14 sm:py-16 md:py-20 text-center text-white">
+          <div className="max-w-3xl mx-auto">{children}</div>
+        </div>
+      </section>
+    );
+  }
 
   if (align === "center") {
     return (
       <section
-        className={cn(
-          "relative w-full overflow-hidden bg-[#00352c]",
-          className
-        )}
+        className={cn("relative w-full overflow-hidden bg-[#00352c]", className)}
       >
-        <div className="relative w-full min-h-[280px] sm:min-h-[340px] md:min-h-[400px] lg:aspect-[1062/493] flex items-center justify-center">
+        <div className="relative w-full min-h-[300px] sm:min-h-[360px] md:min-h-[420px] lg:aspect-[1062/493] flex items-center justify-center">
           {src ? (
             <Image
               src={src}
               alt={alt}
               fill
-              className="object-cover object-center opacity-35"
+              className="object-cover object-center"
               sizes="100vw"
               priority={priority}
             />
           ) : null}
-          <div className="absolute inset-0 bg-[#00352c]/55" aria-hidden />
+          <div className="absolute inset-0 bg-[#00352c]/40" aria-hidden />
           <div className="relative z-10 w-full max-w-4xl mx-auto px-6 py-16 sm:py-20 text-center text-white">
             {children}
           </div>

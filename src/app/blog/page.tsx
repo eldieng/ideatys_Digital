@@ -8,7 +8,7 @@ import BlogGrid from "@/components/sections/BlogGrid";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Articles et conseils sur le marketing digital, le SEO, le branding, le développement web et plus encore.",
+    "Articles, conseils et retours d'expérience pour booster votre présence digitale — Ideatys Digital à Dakar.",
 };
 
 export default function BlogPage() {
@@ -16,25 +16,23 @@ export default function BlogPage() {
     <MainLayout>
       <MaquetteHero
         src="/img/BLOG_7a1e.png"
-        alt="Blog Ideatys Digital — conseils digitaux à Dakar"
-        textSide="left"
-        textWidthPercent={42}
+        alt="Blog Ideatys Digital — actualités et expertise digitale à Dakar"
+        align="stack"
+        imagePosition="top"
+        priority
       >
         <AnimatedSection>
-          <HeroBadge>Blog</HeroBadge>
-          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.4rem,3.1vw,3rem)]">
-            Insights &amp; actualités{" "}
-            <span className="text-accent">digitales</span>
+          <HeroBadge tone="orange">Blog</HeroBadge>
+          <h1 className="font-bold leading-[1.15] text-white text-[clamp(1.75rem,3.5vw,3.25rem)]">
+            Actualités &amp; Expertise
           </h1>
-          <p className="mt-[0.75em] text-white/90 leading-snug text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[40ch]">
-            Stratégie, web, IA et communication — pour avancer concrètement sur
-            le marché sénégalais et ouest-africain.
+          <p className="mt-5 mx-auto text-white/90 leading-relaxed text-[clamp(1rem,1.55vw,1.25rem)] max-w-2xl">
+            Articles, conseils et retours d&apos;expérience pour booster votre
+            présence digitale.
           </p>
         </AnimatedSection>
       </MaquetteHero>
 
-
-      {/* Articles with dynamic filters + search */}
       <section className="py-20 md:py-28 bg-white">
         <Container>
           <BlogGrid />
