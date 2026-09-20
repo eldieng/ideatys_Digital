@@ -49,11 +49,11 @@ export default async function ServicesPage() {
       >
         <AnimatedSection>
           <HeroBadge>Nos services</HeroBadge>
-          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.15rem,2.55vw,2.55rem)]">
+          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.4rem,3.1vw,3rem)]">
             Des solutions digitales{" "}
             <span className="text-accent">sur mesure</span>
           </h1>
-          <p className="mt-[0.75em] text-white/85 leading-snug text-[clamp(0.65rem,1.15vw,1.05rem)] max-w-[36ch]">
+          <p className="mt-[0.75em] text-white/85 leading-snug text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[40ch]">
             De la stratégie à la réalisation, nous couvrons vos besoins digitaux
             avec expertise et créativité — à Dakar et en Afrique de l&apos;Ouest.
           </p>

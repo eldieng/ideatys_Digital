@@ -37,8 +37,8 @@ export function HeroBadge({
       <span
         className={
           isLight
-            ? "text-[clamp(0.55rem,0.95vw,0.75rem)] font-semibold uppercase tracking-[0.14em] text-accent"
-            : "text-[clamp(0.55rem,0.95vw,0.75rem)] font-semibold uppercase tracking-[0.14em] text-white"
+            ? "text-[clamp(0.7rem,1.15vw,0.9rem)] font-semibold uppercase tracking-[0.14em] text-accent"
+            : "text-[clamp(0.7rem,1.15vw,0.9rem)] font-semibold uppercase tracking-[0.14em] text-white"
         }
       >
         {children}

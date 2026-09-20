@@ -37,7 +37,7 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.06 }}
-                className="font-bold text-primary leading-[1.12] tracking-tight text-[clamp(1rem,2.55vw,2.7rem)]"
+                className="font-bold text-primary leading-[1.12] tracking-tight text-[clamp(1.35rem,3.2vw,3.1rem)]"
               >
                 <span className="text-primary">Créativité.</span>{" "}
                 <span className="text-accent">Professionnalisme.</span>{" "}
@@ -51,7 +51,7 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.14 }}
-                className="mt-[0.7em] text-[clamp(0.58rem,1.15vw,1rem)] text-gray-dark leading-snug max-w-[36ch]"
+                className="mt-[0.7em] text-[clamp(0.9rem,1.5vw,1.25rem)] text-gray-dark leading-snug max-w-[40ch]"
               >
                 Nous transformons vos idées en solutions digitales performantes
                 et durables — sites, stratégie, communication et cybersécurité.
@@ -68,7 +68,7 @@ export default function HeroSection() {
                   variant="primary"
                   size="sm"
                   icon={<ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
-                  className="!text-[clamp(0.6rem,1.1vw,0.95rem)] !px-[clamp(0.6rem,1.5vw,1.5rem)] !py-[clamp(0.35rem,0.9vw,0.75rem)]"
+                  className="!text-[clamp(0.8rem,1.25vw,1.05rem)] !px-[clamp(0.6rem,1.5vw,1.5rem)] !py-[clamp(0.35rem,0.9vw,0.75rem)]"
                 >
                   Demander un devis
                 </Button>
@@ -76,7 +76,7 @@ export default function HeroSection() {
                   href="/services"
                   variant="outline"
                   size="sm"
-                  className="!text-[clamp(0.6rem,1.1vw,0.95rem)] !px-[clamp(0.6rem,1.5vw,1.5rem)] !py-[clamp(0.35rem,0.9vw,0.75rem)]"
+                  className="!text-[clamp(0.8rem,1.25vw,1.05rem)] !px-[clamp(0.6rem,1.5vw,1.5rem)] !py-[clamp(0.35rem,0.9vw,0.75rem)]"
                 >
                   Nos services
                 </Button>

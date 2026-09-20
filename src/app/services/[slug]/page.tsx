@@ -116,10 +116,10 @@ export default async function ServicePage({
               <div className="text-accent mb-[0.45em] scale-75 origin-left sm:scale-90 lg:scale-100">
                 {iconMap[service.icon]}
               </div>
-              <h1 className="font-bold text-white leading-[1.12] tracking-tight text-[clamp(1rem,2.35vw,2.35rem)]">
+              <h1 className="font-bold text-white leading-[1.12] tracking-tight text-[clamp(1.35rem,3vw,2.85rem)]">
                 {service.title}
               </h1>
-              <p className="mt-[0.7em] text-white/90 leading-snug text-[clamp(0.62rem,1.1vw,1rem)] max-w-[34ch]">
+              <p className="mt-[0.7em] text-white/90 leading-snug text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[38ch]">
                 {subtitle}
               </p>
             </AnimatedSection>

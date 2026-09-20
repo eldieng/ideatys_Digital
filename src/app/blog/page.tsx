@@ -22,11 +22,11 @@ export default function BlogPage() {
       >
         <AnimatedSection>
           <HeroBadge>Blog</HeroBadge>
-          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.15rem,2.55vw,2.55rem)]">
+          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.4rem,3.1vw,3rem)]">
             Insights &amp; actualités{" "}
             <span className="text-accent">digitales</span>
           </h1>
-          <p className="mt-[0.75em] text-white/90 leading-snug text-[clamp(0.65rem,1.15vw,1.05rem)] max-w-[36ch]">
+          <p className="mt-[0.75em] text-white/90 leading-snug text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[40ch]">
             Stratégie, web, IA et communication — pour avancer concrètement sur
             le marché sénégalais et ouest-africain.
           </p>
