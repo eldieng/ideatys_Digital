@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import {
   Target,
   Code,
@@ -17,6 +16,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import Button from "@/components/ui/Button";
 import CTASection from "@/components/sections/CTASection";
+import MaquetteHero from "@/components/ui/MaquetteHero";
 import { services } from "@/data/services";
 import { ArrowRight } from "lucide-react";
 
@@ -72,45 +72,59 @@ export default async function ServicePage({
         ]}
       />
 
-      {/* Hero avec maquette en fond */}
-      <section className="relative py-20 md:py-28 text-white overflow-hidden">
-        {(() => {
-          const imageMap: Record<string, string> = {
-            'strategie-digitale': '/img/S_DIGITAL_7299.png',
-            'developpement-web': '/img/DEV_WEB_1a8c.png',
-            'community-management': '/img/C_MANAGER_fce4.png',
-            'production-audiovisuelle': '/img/P_AUDIOVISUEL_b690.png',
-            'design-graphique': '/img/D_GRAPHIC_a81f.png',
-            'print-impression': '/img/Print_Impression_74c7.png',
-          };
-          const imageSrc = imageMap[service.slug];
-          
-          return imageSrc ? (
-            <div className="absolute inset-0 w-full h-full">
-              <Image
-                src={imageSrc}
-                alt={`${service.title} - Services digitaux IDEATYS à Dakar, Sénégal`}
-                fill
-                className="object-cover object-center"
-              />
-            </div>
-          ) : (
-            <div className="absolute inset-0 w-full h-full bg-linear-to-br from-primary via-primary-dark to-primary" />
+      {(() => {
+        const imageMap: Record<string, string> = {
+          "strategie-digitale": "/img/S_DIGITAL_7299.png",
+          "developpement-web": "/img/DEV_WEB_1a8c.png",
+          "community-management": "/img/C_MANAGER_fce4.png",
+          "production-audiovisuelle": "/img/P_AUDIOVISUEL_b690.png",
+          "design-graphique": "/img/D_GRAPHIC_a81f.png",
+          "print-impression": "/img/Print_Impression_74c7.png",
+        };
+        const imageSrc = imageMap[service.slug];
+        const subtitle = service.shortDescription || service.description;
+
+        if (!imageSrc) {
+          return (
+            <section className="relative py-16 md:py-24 bg-primary text-white overflow-hidden">
+              <Container className="relative z-10">
+                <div className="max-w-xl">
+                  <AnimatedSection>
+                    <div className="text-accent mb-4">{iconMap[service.icon]}</div>
+                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+                      {service.title}
+                    </h1>
+                    <p className="mt-4 text-base md:text-lg text-white/85 leading-snug">
+                      {subtitle}
+                    </p>
+                  </AnimatedSection>
+                </div>
+              </Container>
+            </section>
           );
-        })()}
-        
-        <Container className="relative z-10">
-          <div className="max-w-3xl">
+        }
+
+        return (
+          <MaquetteHero
+            src={imageSrc}
+            alt={`${service.title} — services digitaux Ideatys à Dakar, Sénégal`}
+            textSide="left"
+            textWidthPercent={36}
+          >
             <AnimatedSection>
-              <div className="text-accent mb-6">{iconMap[service.icon]}</div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <div className="text-accent mb-[0.55em] scale-75 origin-left md:scale-90 lg:scale-100">
+                {iconMap[service.icon]}
+              </div>
+              <h1 className="font-bold text-white leading-[1.12] tracking-tight text-[clamp(0.95rem,2.2vw,2.1rem)] drop-shadow-md">
                 {service.title}
               </h1>
-              <p className="mt-6 text-lg text-white/90">{service.description}</p>
+              <p className="mt-[0.65em] text-white/90 leading-snug text-[clamp(0.6rem,1.05vw,0.95rem)] max-w-[32ch]">
+                {subtitle}
+              </p>
             </AnimatedSection>
-          </div>
-        </Container>
-      </section>
+          </MaquetteHero>
+        );
+      })()}
 
       {/* Problématique */}
       <section className="py-20 md:py-28 bg-white">

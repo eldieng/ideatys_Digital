@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import MaquetteHero from "@/components/ui/MaquetteHero";
 import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
 import AnimatedSection from "@/components/ui/AnimatedSection";
@@ -37,35 +37,26 @@ const perks = [
 export default function CandidaturePage() {
   return (
     <MainLayout>
-      {/* Hero avec maquette en fond */}
-      <section className="relative py-20 md:py-28 text-white overflow-hidden">
-        {/* Maquette en fond */}
-        <div className="absolute inset-0 w-full h-full">
-          <Image
-            src="/img/Rejoindre_Nous_342b.png"
-            alt="Rejoindre IDEATYS Digital - Carrières et opportunités dans une agence digitale à Dakar"
-            fill
-            className="object-cover object-center"
-          />
-        </div>
-        
-        <Container className="relative z-10">
-          <div className="max-w-2xl">
-            <AnimatedSection>
-              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4 bg-primary/40 px-3 py-1 rounded">
-                Rejoignez-nous
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white drop-shadow-lg">
-                Rejoignez IDEATYS Digital
-              </h1>
-              <p className="mt-6 text-lg text-white/90 drop-shadow">
-                Participez à des projets innovants et donnez un nouvel élan à
-                votre carrière.
-              </p>
-            </AnimatedSection>
-          </div>
-        </Container>
-      </section>
+      <MaquetteHero
+        src="/img/Rejoindre_Nous_342b.png"
+        alt="Rejoindre Ideatys Digital — candidatures à Dakar"
+        textSide="left"
+        textWidthPercent={40}
+      >
+        <AnimatedSection>
+          <span className="inline-block text-[clamp(0.6rem,1vw,0.8rem)] font-semibold uppercase tracking-wider text-accent mb-[0.55em]">
+            Carrières
+          </span>
+          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.1rem,2.5vw,2.5rem)] drop-shadow-md">
+            Rejoignez l&apos;équipe Ideatys
+          </h1>
+          <p className="mt-[0.65em] text-white/90 leading-snug text-[clamp(0.65rem,1.15vw,1rem)] max-w-[34ch]">
+            Envie de construire des projets digitaux qui comptent, depuis Dakar ?
+            Parlez-nous de vous.
+          </p>
+        </AnimatedSection>
+      </MaquetteHero>
+
 
       {/* Perks */}
       <section className="py-16 bg-gray-light">

@@ -5,6 +5,7 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import CTASection from "@/components/sections/CTASection";
+import MaquetteHero from "@/components/ui/MaquetteHero";
 import { values } from "@/data/stats";
 import { team } from "@/data/team";
 import {
@@ -33,35 +34,25 @@ const iconMap: Record<string, React.ReactNode> = {
 export default function AProposPage() {
   return (
     <MainLayout>
-      {/* Hero avec maquette en fond */}
-      <section className="relative py-20 md:py-28 text-white overflow-hidden">
-        {/* Maquette en fond */}
-        <div className="absolute inset-0 w-full h-full">
-          <Image
-            src="/img/A_propos_2d05.png"
-            alt="À propos d'IDEATYS Digital - Agence digitale créative à Dakar, Sénégal"
-            fill
-            className="object-cover object-center"
-          />
-        </div>
-        
-        <Container className="relative z-10">
-          <div className="max-w-2xl">
-            <AnimatedSection>
-              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4 bg-primary/30 px-3 py-1 rounded">
-                À propos
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white drop-shadow-lg">
-                Une agence digitale animée par la passion
-              </h1>
-              <p className="mt-6 text-lg text-white/90 drop-shadow">
-                Depuis notre création, nous accompagnons les entreprises dans
-                leur transformation digitale avec créativité et expertise.
-              </p>
-            </AnimatedSection>
-          </div>
-        </Container>
-      </section>
+      <MaquetteHero
+        src="/img/A_propos_2d05.png"
+        alt="À propos d'IDEATYS Digital — agence digitale à Dakar"
+        textSide="left"
+        textWidthPercent={40}
+      >
+        <AnimatedSection>
+          <span className="inline-block text-[clamp(0.6rem,1vw,0.8rem)] font-semibold uppercase tracking-wider text-accent mb-[0.55em]">
+            À propos
+          </span>
+          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.1rem,2.5vw,2.5rem)] drop-shadow-md">
+            Une agence digitale animée par la passion
+          </h1>
+          <p className="mt-[0.65em] text-white/90 leading-snug text-[clamp(0.65rem,1.15vw,1rem)] max-w-[34ch]">
+            Nous accompagnons les entreprises dans leur transformation digitale
+            avec créativité et expertise, depuis Dakar.
+          </p>
+        </AnimatedSection>
+      </MaquetteHero>
 
       {/* Mission */}
       <section className="py-20 md:py-28 bg-white">

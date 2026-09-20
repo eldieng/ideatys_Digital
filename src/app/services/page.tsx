@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import {
   Target,
   Code,
@@ -15,6 +14,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import CTASection from "@/components/sections/CTASection";
+import MaquetteHero from "@/components/ui/MaquetteHero";
 import prisma from "@/lib/prisma";
 
 export const metadata: Metadata = {
@@ -40,39 +40,30 @@ export default async function ServicesPage() {
   });
   return (
     <MainLayout>
-      {/* Hero avec maquette en fond */}
-      <section className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
-        {/* Maquette en fond pleine largeur */}
-        <div className="absolute inset-0 w-full h-full">
-          <Image
-            src="/img/SERVICES_WST_825e.png"
-            alt="Services digitaux au Sénégal - Développement web, stratégie digitale, community management et cybersécurité à Dakar"
-            fill
-            className="object-cover object-center"
-          />
-        </div>
-        
-        <Container className="relative z-10">
-          <div className="flex justify-end">
-            {/* Texte posé sur la zone verte droite de la maquette */}
-            <div className="max-w-2xl text-left lg:text-left">
-              <AnimatedSection>
-                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-accent text-sm font-semibold mb-6">
-                  <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                  Nos services
-                </span>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white">
-                  Des solutions digitales sur mesure,
-                  <span className="block text-accent">pensées pour le marché sénégalais et ouest-africain</span>
-                </h1>
-                <p className="mt-8 text-lg md:text-xl text-white/70">
-                  De la stratégie à la réalisation, en passant par la sécurité de vos outils numériques : chaque service peut se prendre seul, mais ils sont pensés pour avancer ensemble.
-                </p>
-              </AnimatedSection>
-            </div>
-          </div>
-        </Container>
-      </section>
+      <MaquetteHero
+        src="/img/SERVICES_WST_825e.png"
+        alt="Services digitaux au Sénégal — Ideatys Digital à Dakar"
+        textSide="right"
+        textWidthPercent={48}
+        priority
+      >
+        <AnimatedSection>
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-accent text-[clamp(0.6rem,1vw,0.8rem)] font-semibold mb-[0.7em]">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+            Nos services
+          </span>
+          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.1rem,2.6vw,2.6rem)] drop-shadow-md">
+            Des solutions digitales sur mesure,
+            <span className="block text-accent">
+              pensées pour le marché sénégalais
+            </span>
+          </h1>
+          <p className="mt-[0.7em] text-white/80 leading-snug text-[clamp(0.65rem,1.15vw,1rem)] max-w-[36ch]">
+            De la stratégie à la cybersécurité : chaque offre peut se prendre seule,
+            mais elles sont conçues pour avancer ensemble.
+          </p>
+        </AnimatedSection>
+      </MaquetteHero>
 
       {/* Services Grid */}
       <section className="py-20 md:py-28 bg-gray-light">
