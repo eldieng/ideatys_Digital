@@ -16,7 +16,19 @@ export default function RealisationsPage() {
     <MainLayout>
       {/* Maquette Portfolio déjà complète (texte inclus) — pas d'overlay HTML */}
       <section className="relative w-full overflow-hidden bg-[#00352c]">
-        <div className="relative w-full aspect-[1062/493]">
+        {/* Mobile: hauteur confortable, image cadrée */}
+        <div className="relative w-full aspect-[16/10] min-h-[200px] md:hidden">
+          <Image
+            src="/img/portfolio_df12.png"
+            alt="Ils nous ont fait confiance — portfolio Ideatys Digital à Dakar"
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+            priority
+          />
+        </div>
+        {/* Desktop: ratio maquette */}
+        <div className="relative hidden md:block w-full aspect-[1062/493]">
           <Image
             src="/img/portfolio_df12.png"
             alt="Ils nous ont fait confiance — portfolio Ideatys Digital à Dakar"
