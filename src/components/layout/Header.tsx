@@ -48,16 +48,18 @@ export default function Header() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled
-            ? "bg-white/95 backdrop-blur-md shadow-md"
-            : "bg-transparent"
+          "fixed top-0 left-0 right-0 z-[210] transition-all duration-300",
+          isOpen
+            ? "bg-white shadow-md"
+            : isScrolled
+              ? "bg-white/95 backdrop-blur-md shadow-md"
+              : "bg-transparent"
         )}
       >
       <Container>
         <nav className="flex items-center justify-between h-20 relative">
           {/* Logo */}
-          <Link href="/" className="relative z-50 shrink-0">
+          <Link href="/" className="relative z-[220] shrink-0">
             <Image
               src="/img/ideatysdigital_logo_sans_fond.png"
               alt="IDEATYS Digital"
@@ -188,111 +190,119 @@ export default function Header() {
           {/* Mobile Menu Button - Hidden in presentation mode */}
           {!siteConfig.PRESENTATION_MODE && (
             <button
-              className="lg:hidden relative z-50 p-2 text-primary"
+              className="lg:hidden relative z-[220] p-2 text-primary"
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-expanded={isOpen}
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           )}
-
-          {/* Mobile Menu Overlay */}
-          {!siteConfig.PRESENTATION_MODE && isOpen && (
-            <div className="fixed inset-0 z-40 lg:hidden">
-              <div
-                className="absolute inset-0 bg-black/50"
-                onClick={() => setIsOpen(false)}
-              />
-              <div className="absolute right-0 top-0 bottom-0 w-80 max-w-full bg-white shadow-2xl animate-slide-down">
-                <div className="pt-24 px-6 pb-6 h-full overflow-y-auto">
-                  <div className="flex flex-col gap-1">
-                    {mainNavigation.map((item) => (
-                      <div key={item.href}>
-                        <Link
-                          href={item.href}
-                          onClick={() => setIsOpen(false)}
-                          className={cn(
-                            "block py-3 text-base font-medium transition-colors",
-                            isActive(item.href)
-                              ? "text-accent"
-                              : "text-primary hover:text-accent"
-                          )}
-                        >
-                          {item.label}
-                        </Link>
-                        {item.children && (
-                          <div className="pl-4 border-l-2 border-gray ml-2">
-                            {item.children.map((child) => (
-                              <Link
-                                key={child.href}
-                                href={child.href}
-                                onClick={() => setIsOpen(false)}
-                                className="block py-2 text-sm text-gray-dark hover:text-accent transition-colors"
-                              >
-                                {child.label}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-8 space-y-4">
-                    <Button
-                      href="/contact"
-                      variant="primary"
-                      size="md"
-                      className="w-full"
-                    >
-                      Demander un devis
-                    </Button>
-                    
-                    {session ? (
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-3 px-2 py-2">
-                          <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white font-bold">
-                            {session.user?.name?.charAt(0).toUpperCase() || <User className="w-5 h-5" />}
-                          </div>
-                          <div>
-                            <p className="font-medium text-primary">{session.user?.name}</p>
-                            <p className="text-xs text-gray-500">{session.user?.email}</p>
-                          </div>
-                        </div>
-                        <Link
-                          href="/admin"
-                          onClick={() => setIsOpen(false)}
-                          className="block text-center py-2 text-sm font-medium text-accent hover:underline"
-                        >
-                          Dashboard
-                        </Link>
-                        <button
-                          onClick={() => {
-                            setIsOpen(false);
-                            signOut({ callbackUrl: "/" });
-                          }}
-                          className="w-full text-center py-2 text-sm font-medium text-red-500 hover:underline flex items-center justify-center gap-2"
-                        >
-                          <LogOut className="w-4 h-4" />
-                          Déconnexion
-                        </button>
-                      </div>
-                    ) : (
-                      <Link
-                        href="/admin/login"
-                        onClick={() => setIsOpen(false)}
-                        className="block text-center py-2 text-sm font-medium text-primary hover:text-accent transition-colors"
-                      >
-                        Connexion
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </nav>
       </Container>
       </header>
+
+      {/* Menu hors du <header> : backdrop-filter du header piégeait le fixed et le menu passait sous le hero */}
+      {!siteConfig.PRESENTATION_MODE && isOpen && (
+        <div className="fixed inset-0 z-[200] lg:hidden">
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setIsOpen(false)}
+            aria-hidden
+          />
+          <div className="absolute right-0 top-0 bottom-0 w-[min(20rem,100%)] max-w-full bg-white shadow-2xl animate-slide-down">
+            <div className="pt-24 px-6 pb-6 h-full overflow-y-auto overscroll-contain">
+              <div className="flex flex-col gap-1">
+                {mainNavigation.map((item) => (
+                  <div key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className={cn(
+                        "block py-3 text-base font-medium transition-colors",
+                        isActive(item.href)
+                          ? "text-accent"
+                          : "text-primary hover:text-accent"
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                    {item.children && (
+                      <div className="pl-4 border-l-2 border-gray ml-2">
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={() => setIsOpen(false)}
+                            className="block py-2 text-sm text-gray-dark hover:text-accent transition-colors"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 space-y-4">
+                <Button
+                  href="/contact"
+                  variant="primary"
+                  size="md"
+                  className="w-full"
+                >
+                  Demander un devis
+                </Button>
+
+                {session ? (
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-3 px-2 py-2">
+                      <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white font-bold">
+                        {session.user?.name?.charAt(0).toUpperCase() || (
+                          <User className="w-5 h-5" />
+                        )}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-medium text-primary truncate">
+                          {session.user?.name}
+                        </p>
+                        <p className="text-xs text-gray-500 truncate">
+                          {session.user?.email}
+                        </p>
+                      </div>
+                    </div>
+                    <Link
+                      href="/admin"
+                      onClick={() => setIsOpen(false)}
+                      className="block text-center py-2 text-sm font-medium text-accent hover:underline"
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setIsOpen(false);
+                        signOut({ callbackUrl: "/" });
+                      }}
+                      className="w-full text-center py-2 text-sm font-medium text-red-500 hover:underline flex items-center justify-center gap-2"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Déconnexion
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    href="/admin/login"
+                    onClick={() => setIsOpen(false)}
+                    className="block text-center py-2 text-sm font-medium text-primary hover:text-accent transition-colors"
+                  >
+                    Connexion
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

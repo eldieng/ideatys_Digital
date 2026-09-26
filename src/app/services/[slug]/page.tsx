@@ -113,13 +113,13 @@ export default async function ServicePage({
           >
             <AnimatedSection>
               <HeroBadge>Nos services</HeroBadge>
-              <div className="text-accent mb-[0.45em] scale-75 origin-left sm:scale-90 lg:scale-100">
+              <div className="hero-icon text-accent mb-3 md:mb-[0.45em] flex justify-center md:justify-start scale-90 md:scale-90 lg:scale-100 md:origin-left">
                 {iconMap[service.icon]}
               </div>
-              <h1 className="font-bold text-white leading-[1.12] tracking-tight text-[clamp(1.35rem,3vw,2.85rem)]">
+              <h1 className="font-bold text-white leading-[1.12] tracking-tight text-[1.75rem] md:text-[clamp(1.35rem,3vw,2.85rem)]">
                 {service.title}
               </h1>
-              <p className="mt-[0.7em] text-white/90 leading-snug text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[38ch]">
+              <p className="mt-3 md:mt-[0.7em] text-white/90 leading-relaxed md:leading-snug text-base md:text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[38ch] mx-auto md:mx-0">
                 {subtitle}
               </p>
             </AnimatedSection>
