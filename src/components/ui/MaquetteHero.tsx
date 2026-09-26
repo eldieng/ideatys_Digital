@@ -89,36 +89,56 @@ function MaquetteImage({
   );
 }
 
-/** Bloc texte mobile (sous l'image) */
+/** Bloc texte mobile (sous l'image) — toujours centré */
 function MobileTextBlock({ children }: { children: ReactNode }) {
   return (
     <div className="relative z-10 w-full px-5 py-8 text-white md:hidden">
-      <div className="max-w-xl mx-auto text-center sm:text-left sm:mx-0 [&_h1]:text-[1.75rem] [&_h1]:leading-tight [&_p]:text-base [&_p]:leading-relaxed [&_p]:max-w-none [&_p]:mx-auto sm:[&_p]:mx-0">
+      <div
+        className={cn(
+          "max-w-xl mx-auto flex flex-col items-center text-center",
+          "[&_h1]:text-[1.75rem] [&_h1]:leading-tight [&_h1]:font-bold",
+          "[&_p]:text-base [&_p]:leading-relaxed [&_p]:max-w-none",
+          "[&_.hero-icon]:flex [&_.hero-icon]:justify-center"
+        )}
+      >
         {children}
       </div>
     </div>
   );
 }
 
-/** Image pleine largeur mobile */
+/**
+ * Image pleine largeur mobile.
+ * Les maquettes NUL ont une zone vide (texte) + une photo :
+ * - textSide=left  → photo à droite → on cadre à droite
+ * - textSide=right → photo à gauche → on cadre à gauche
+ */
 function MobileFullImage({
   src,
   alt,
   priority,
+  textSide = "left",
   objectClass,
 }: {
   src: string;
   alt: string;
   priority?: boolean;
-  objectClass: string;
+  textSide?: TextSide;
+  objectClass?: string;
 }) {
+  const cropClass =
+    objectClass ??
+    (textSide === "right"
+      ? "object-cover object-[20%_center] scale-110"
+      : "object-cover object-[85%_center] scale-110");
+
   return (
-    <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[220px] md:hidden">
+    <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[240px] overflow-hidden md:hidden">
       <MaquetteImage
         src={src}
         alt={alt}
         priority={priority}
-        objectClass={objectClass}
+        objectClass={cropClass}
       />
     </div>
   );
@@ -160,7 +180,8 @@ export default function MaquetteHero({
             src={src}
             alt={alt}
             priority={priority}
-            objectClass="object-cover object-center"
+            textSide="left"
+            objectClass="object-cover object-center scale-105"
           />
         ) : null}
         <MobileTextBlock>{children}</MobileTextBlock>
@@ -191,7 +212,7 @@ export default function MaquetteHero({
         className={cn("relative w-full overflow-hidden bg-[#00352c]", className)}
       >
         {src ? (
-          <div className="relative w-full h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px]">
+          <div className="relative w-full h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px] overflow-hidden">
             <MaquetteImage
               src={src}
               alt={alt}
@@ -219,7 +240,8 @@ export default function MaquetteHero({
             src={src}
             alt={alt}
             priority={priority}
-            objectClass="object-cover object-center"
+            textSide="left"
+            objectClass="object-cover object-center scale-105"
           />
         ) : null}
         <MobileTextBlock>{children}</MobileTextBlock>
@@ -252,11 +274,7 @@ export default function MaquetteHero({
           src={src}
           alt={alt}
           priority={priority}
-          objectClass={
-            textSide === "right"
-              ? "object-cover object-[70%_center]"
-              : "object-cover object-center"
-          }
+          textSide={textSide}
         />
       ) : null}
       <MobileTextBlock>{children}</MobileTextBlock>

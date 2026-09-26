@@ -106,12 +106,12 @@ export default function HeroSection() {
     <section className="relative w-full bg-white">
       {/* Mobile */}
       <div className="md:hidden">
-        <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[220px] bg-[#f5f5f5]">
+        <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[240px] overflow-hidden bg-[#f5f5f5]">
           <Image
             src="/img/Home_page_4f45.png"
             alt="Agence digitale à Dakar — équipe Ideatys Digital au travail"
             fill
-            className="object-cover object-center"
+            className="object-cover object-[80%_center] scale-110"
             sizes="100vw"
             priority
           />
