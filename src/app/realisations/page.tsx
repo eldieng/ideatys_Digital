@@ -14,26 +14,14 @@ export const metadata: Metadata = {
 export default function RealisationsPage() {
   return (
     <MainLayout>
-      {/* Maquette Portfolio déjà complète (texte inclus) — pas d'overlay HTML */}
+      {/* Maquette Portfolio — image pleine largeur (cover) */}
       <section className="relative w-full overflow-hidden bg-[#00352c]">
-        {/* Mobile: hauteur confortable, image cadrée */}
-        <div className="relative w-full aspect-[16/10] min-h-[200px] md:hidden">
+        <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] min-h-[220px] sm:min-h-[280px] lg:min-h-[360px]">
           <Image
             src="/img/portfolio_df12.png"
             alt="Ils nous ont fait confiance — portfolio Ideatys Digital à Dakar"
             fill
             className="object-cover object-center"
-            sizes="100vw"
-            priority
-          />
-        </div>
-        {/* Desktop: ratio maquette */}
-        <div className="relative hidden md:block w-full aspect-[1062/493]">
-          <Image
-            src="/img/portfolio_df12.png"
-            alt="Ils nous ont fait confiance — portfolio Ideatys Digital à Dakar"
-            fill
-            className="object-contain object-center"
             sizes="100vw"
             priority
           />
