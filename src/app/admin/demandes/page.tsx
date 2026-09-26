@@ -44,14 +44,14 @@ export default async function DemandesPage() {
           </div>
         ) : (
           <div className="divide-y divide-gray-200">
-            {demandes.map((demande) => (
+            {demandes.map((demande: any) => (
               <div key={demande.id} className="p-6 hover:bg-gray-50">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
                       <h3 className="font-semibold text-gray-900">{demande.nom}</h3>
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[demande.status]}`}>
-                        {statusLabels[demande.status]}
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[demande.status as keyof typeof statusColors]}`}>
+                        {statusLabels[demande.status as keyof typeof statusLabels]}
                       </span>
                     </div>
                     

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import MaquetteHero, { HeroBadge } from "@/components/ui/MaquetteHero";
 import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
 import AnimatedSection from "@/components/ui/AnimatedSection";
@@ -36,25 +37,25 @@ const perks = [
 export default function CandidaturePage() {
   return (
     <MainLayout>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-primary text-white">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <AnimatedSection>
-              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4">
-                Rejoignez-nous
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Rejoignez IDEATYS Digital
-              </h1>
-              <p className="mt-6 text-lg text-white/70">
-                Participez à des projets innovants et donnez un nouvel élan à
-                votre carrière.
-              </p>
-            </AnimatedSection>
-          </div>
-        </Container>
-      </section>
+      <MaquetteHero
+        src="/img/Rejoindre_Nous_342b.png"
+        alt="Rejoindre Ideatys Digital — candidatures à Dakar"
+        textSide="left"
+        textWidthPercent={42}
+      >
+        <AnimatedSection>
+          <HeroBadge>Rejoignez-nous</HeroBadge>
+          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.4rem,3.1vw,3rem)]">
+            Rejoignez l&apos;équipe{" "}
+            <span className="text-accent">Ideatys</span>
+          </h1>
+          <p className="mt-[0.75em] text-white/90 leading-snug text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[40ch]">
+            Envie de construire des projets digitaux qui comptent, depuis Dakar&nbsp;?
+            Parlez-nous de vous.
+          </p>
+        </AnimatedSection>
+      </MaquetteHero>
+
 
       {/* Perks */}
       <section className="py-16 bg-gray-light">

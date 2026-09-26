@@ -23,7 +23,7 @@ export async function generateStaticParams() {
     where: { published: true },
     select: { slug: true },
   });
-  return realisations.map((r) => ({ slug: r.slug }));
+  return realisations.map((r: any) => ({ slug: r.slug }));
 }
 
 export async function generateMetadata({
@@ -66,7 +66,7 @@ export default async function ProjectPage({
     select: { slug: true, title: true },
   });
   
-  const projectIndex = allProjects.findIndex((p) => p.slug === slug);
+  const projectIndex = allProjects.findIndex((p: any) => p.slug === slug);
   const prevProject = projectIndex > 0 ? allProjects[projectIndex - 1] : null;
   const nextProject = projectIndex < allProjects.length - 1 ? allProjects[projectIndex + 1] : null;
 

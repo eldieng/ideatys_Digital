@@ -1,10 +1,10 @@
 import { Stat, Value } from "@/types";
 
 export const stats: Stat[] = [
-  { value: 150, suffix: "+", label: "Projets réalisés" },
-  { value: 80, suffix: "+", label: "Clients satisfaits" },
-  { value: 5, suffix: " ans", label: "D'expérience" },
-  { value: 98, suffix: "%", label: "Taux de satisfaction" },
+  { value: 7, suffix: "", label: "Services digitaux" },
+  { value: 100, suffix: "%", label: "Engagement qualité" },
+  { value: 3, suffix: "", label: "Pays couverts" },
+  { value: 24, suffix: "h", label: "Support disponible" },
 ];
 
 export const values: Value[] = [

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import CTASection from "@/components/sections/CTASection";
+import MaquetteHero, { HeroBadge } from "@/components/ui/MaquetteHero";
 import { values } from "@/data/stats";
 import { team } from "@/data/team";
 import {
@@ -32,35 +34,39 @@ const iconMap: Record<string, React.ReactNode> = {
 export default function AProposPage() {
   return (
     <MainLayout>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-primary text-white">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <AnimatedSection>
-              <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4">
-                À propos
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Une agence digitale animée par la passion
-              </h1>
-              <p className="mt-6 text-lg text-white/70">
-                Depuis notre création, nous accompagnons les entreprises dans
-                leur transformation digitale avec créativité et expertise.
-              </p>
-            </AnimatedSection>
-          </div>
-        </Container>
-      </section>
+      <MaquetteHero
+        src="/img/A_propos_2d05.png"
+        alt="À propos d'IDEATYS Digital — agence digitale à Dakar"
+        textSide="left"
+        textWidthPercent={44}
+      >
+        <AnimatedSection>
+          <HeroBadge>À propos</HeroBadge>
+          <h1 className="font-bold leading-[1.15] text-white text-[clamp(1.4rem,3.1vw,3rem)]">
+            Une agence digitale animée par la{" "}
+            <span className="text-accent">passion</span> de créer et d&apos;
+            <span className="text-accent">impacter.</span>
+          </h1>
+          <p className="mt-[0.75em] text-white/90 leading-snug text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[40ch]">
+            Depuis notre création, nous accompagnons les entreprises dans leur
+            transformation digitale en combinant créativité, stratégie et
+            expertise.
+          </p>
+        </AnimatedSection>
+      </MaquetteHero>
 
       {/* Mission */}
       <section className="py-20 md:py-28 bg-white">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection direction="left">
-              <div className="aspect-square rounded-2xl bg-gray-light flex items-center justify-center">
-                <span className="text-6xl font-bold text-primary/10">
-                  IDEATYS
-                </span>
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
+                <Image
+                  src="/img/A_propos_2d05.png"
+                  alt="À propos d'IDEATYS Digital - Agence digitale créative à Dakar, Sénégal"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </AnimatedSection>
             <AnimatedSection direction="right">
@@ -167,7 +173,11 @@ export default function AProposPage() {
         </Container>
       </section>
 
-      <CTASection />
+      <CTASection 
+        title="Envie de travailler avec nous ?"
+        description="Rejoignez nos clients satisfaits et donnons ensemble vie à votre vision digitale."
+        primaryButtonText="Discutons de votre projet"
+      />
     </MainLayout>
   );
 }

@@ -7,6 +7,7 @@ import {
   Video,
   Palette,
   Printer,
+  Shield,
   CheckCircle,
 } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
@@ -15,6 +16,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import Button from "@/components/ui/Button";
 import CTASection from "@/components/sections/CTASection";
+import MaquetteHero, { HeroBadge } from "@/components/ui/MaquetteHero";
 import { services } from "@/data/services";
 import { ArrowRight } from "lucide-react";
 
@@ -25,6 +27,7 @@ const iconMap: Record<string, React.ReactNode> = {
   Video: <Video className="w-12 h-12" />,
   Palette: <Palette className="w-12 h-12" />,
   Printer: <Printer className="w-12 h-12" />,
+  Shield: <Shield className="w-12 h-12" />,
 };
 
 export async function generateStaticParams() {
@@ -69,20 +72,60 @@ export default async function ServicePage({
         ]}
       />
 
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-primary text-white">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
+      {(() => {
+        const imageMap: Record<string, string> = {
+          "strategie-digitale": "/img/S_DIGITAL_7299.png",
+          "developpement-web": "/img/DEV_WEB_1a8c.png",
+          "community-management": "/img/C_MANAGER_fce4.png",
+          "production-audiovisuelle": "/img/P_AUDIOVISUEL_b690.png",
+          "design-graphique": "/img/D_GRAPHIC_a81f.png",
+          "print-impression": "/img/Print_Impression_74c7.png",
+        };
+        const imageSrc = imageMap[service.slug];
+        const subtitle = service.shortDescription || service.description;
+
+        if (!imageSrc) {
+          return (
+            <section className="relative py-16 md:py-24 bg-primary text-white overflow-hidden">
+              <Container className="relative z-10">
+                <div className="max-w-xl">
+                  <AnimatedSection>
+                    <div className="text-accent mb-4">{iconMap[service.icon]}</div>
+                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+                      {service.title}
+                    </h1>
+                    <p className="mt-4 text-base md:text-lg text-white/85 leading-snug">
+                      {subtitle}
+                    </p>
+                  </AnimatedSection>
+                </div>
+              </Container>
+            </section>
+          );
+        }
+
+        return (
+          <MaquetteHero
+            src={imageSrc}
+            alt={`${service.title} — services digitaux Ideatys à Dakar, Sénégal`}
+            textSide="left"
+            textWidthPercent={40}
+          >
             <AnimatedSection>
-              <div className="text-accent mb-6">{iconMap[service.icon]}</div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <HeroBadge>Nos services</HeroBadge>
+              <div className="text-accent mb-[0.45em] scale-75 origin-left sm:scale-90 lg:scale-100">
+                {iconMap[service.icon]}
+              </div>
+              <h1 className="font-bold text-white leading-[1.12] tracking-tight text-[clamp(1.35rem,3vw,2.85rem)]">
                 {service.title}
               </h1>
-              <p className="mt-6 text-lg text-white/70">{service.description}</p>
+              <p className="mt-[0.7em] text-white/90 leading-snug text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[38ch]">
+                {subtitle}
+              </p>
             </AnimatedSection>
-          </div>
-        </Container>
-      </section>
+          </MaquetteHero>
+        );
+      })()}
 
       {/* Problématique */}
       <section className="py-20 md:py-28 bg-white">
@@ -188,7 +231,11 @@ export default async function ServicePage({
         </Container>
       </section>
 
-      <CTASection />
+      <CTASection 
+        title={`Besoin ${service.slug === 'kc-radar' ? "d'un audit cybersécurité" : service.slug === 'strategie-digitale' ? "d'une stratégie sur mesure" : service.slug === 'developpement-web' ? "d'un site performant" : service.slug === 'community-management' ? "d'animer vos réseaux" : service.slug === 'production-audiovisuelle' ? 'de contenus impactants' : service.slug === 'design-graphique' ? "d'une identité forte" : 'de supports print professionnels'} ?`}
+        description={`Parlons de votre projet ${service.title.toLowerCase()} et trouvons ensemble la solution adaptée à vos objectifs.`}
+        primaryButtonText="Demander un devis"
+      />
     </MainLayout>
   );
 }

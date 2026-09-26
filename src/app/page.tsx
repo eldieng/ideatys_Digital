@@ -59,7 +59,10 @@ export default function Home() {
       <RealisationsPreview />
       <TestimonialsSection />
       <BlogPreview />
-      <CTASection />
+      <CTASection 
+        title="Prêt à lancer votre projet digital ?"
+        description="Que vous soyez une startup à Dakar ou une entreprise internationale, parlons de vos ambitions et construisons ensemble votre réussite."
+      />
     </MainLayout>
   );
 }

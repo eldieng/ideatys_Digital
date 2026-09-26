@@ -9,6 +9,7 @@ import {
   Video,
   Palette,
   Printer,
+  Shield,
   ArrowUpRight,
 } from "lucide-react";
 import Container from "@/components/ui/Container";
@@ -31,6 +32,7 @@ const iconMap: Record<string, React.ReactNode> = {
   Video: <Video className="w-8 h-8" />,
   Palette: <Palette className="w-8 h-8" />,
   Printer: <Printer className="w-8 h-8" />,
+  Shield: <Shield className="w-8 h-8" />,
 };
 
 export default function ServicesPreview() {

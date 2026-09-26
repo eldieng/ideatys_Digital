@@ -2,27 +2,27 @@ import { Testimonial } from "@/types";
 
 export const testimonials: Testimonial[] = [
   {
-    name: "Sophie Martin",
-    company: "TechStart",
-    role: "CEO",
+    name: "Client",
+    company: "Startup Tech",
+    role: "Direction",
     quote:
-      "IDEATYS a transformé notre présence digitale. Leur approche stratégique et leur créativité ont dépassé toutes nos attentes. Un vrai partenaire de confiance.",
+      "Une approche professionnelle et des résultats concrets. L'équipe a su comprendre nos besoins et proposer des solutions adaptées à notre contexte.",
     image: "/img/testimonials/client-1.jpg",
   },
   {
-    name: "Marc Dubois",
-    company: "GreenLeaf",
-    role: "Directeur Marketing",
+    name: "Client",
+    company: "Entreprise locale",
+    role: "Responsable Marketing",
     quote:
-      "Professionnalisme et réactivité exceptionnels. Notre site web génère maintenant 3x plus de leads qu'avant. Je recommande sans hésitation.",
+      "Un accompagnement de qualité du début à la fin. Notre présence digitale s'est nettement améliorée grâce à leur expertise.",
     image: "/img/testimonials/client-2.jpg",
   },
   {
-    name: "Amina Benali",
-    company: "ModaStyle",
-    role: "Fondatrice",
+    name: "Client",
+    company: "PME Sénégalaise",
+    role: "Fondateur",
     quote:
-      "L'équipe d'IDEATYS a su capturer l'essence de notre marque. Le design graphique et la stratégie social media sont exactement ce dont nous avions besoin.",
+      "Des professionnels à l'écoute qui ont su traduire notre vision en réalisations concrètes. Une collaboration fluide et efficace.",
     image: "/img/testimonials/client-3.jpg",
   },
 ];

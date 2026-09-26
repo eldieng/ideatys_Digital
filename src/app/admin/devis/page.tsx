@@ -74,13 +74,13 @@ export default async function DevisPage() {
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <p className="text-sm text-gray-600">En attente</p>
           <p className="text-2xl font-bold text-blue-600">
-            {devisList.filter((d) => d.status === "ENVOYE").length}
+            {devisList.filter((d: any) => d.status === "ENVOYE").length}
           </p>
         </div>
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <p className="text-sm text-gray-600">Acceptés</p>
           <p className="text-2xl font-bold text-green-600">
-            {devisList.filter((d) => d.status === "ACCEPTE").length}
+            {devisList.filter((d: any) => d.status === "ACCEPTE").length}
           </p>
         </div>
         <div className="bg-white rounded-xl p-4 border border-gray-200">
@@ -88,8 +88,8 @@ export default async function DevisPage() {
           <p className="text-2xl font-bold text-accent">
             {formatCurrency(
               devisList
-                .filter((d) => d.status === "ACCEPTE")
-                .reduce((sum, d) => sum + d.total, 0)
+                .filter((d: any) => d.status === "ACCEPTE")
+                .reduce((sum: number, d: any) => sum + d.total, 0)
             )}
           </p>
         </div>
@@ -138,7 +138,7 @@ export default async function DevisPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {devisList.map((devis) => (
+                {devisList.map((devis: any) => (
                   <tr key={devis.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="font-mono font-semibold text-primary">

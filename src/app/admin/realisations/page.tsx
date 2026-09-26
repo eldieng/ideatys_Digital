@@ -67,7 +67,7 @@ export default async function RealisationsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {realisations.map((realisation) => (
+              {realisations.map((realisation: any) => (
                 <tr key={realisation.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">

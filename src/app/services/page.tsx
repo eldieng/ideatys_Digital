@@ -7,18 +7,20 @@ import {
   Video,
   Palette,
   Printer,
+  Shield,
   ArrowUpRight,
 } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
 import Container from "@/components/ui/Container";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import CTASection from "@/components/sections/CTASection";
+import MaquetteHero, { HeroBadge } from "@/components/ui/MaquetteHero";
 import prisma from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Services Digitaux à Dakar | Web, Stratégie, Cybersécurité",
   description:
-    "Découvrez nos services : stratégie digitale, développement web, community management, production audiovisuelle, design graphique et print.",
+    "Développement web, stratégie digitale, community management, design, print et cybersécurité : découvrez les services d'IDEATYS Digital au Sénégal.",
 };
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -28,6 +30,7 @@ const iconMap: Record<string, React.ReactNode> = {
   Video: <Video className="w-10 h-10" />,
   Palette: <Palette className="w-10 h-10" />,
   Printer: <Printer className="w-10 h-10" />,
+  Shield: <Shield className="w-10 h-10" />,
 };
 
 export default async function ServicesPage() {
@@ -37,33 +40,25 @@ export default async function ServicesPage() {
   });
   return (
     <MainLayout>
-      {/* Hero with gradient and decorative elements */}
-      <section className="relative py-24 md:py-32 lg:py-40 bg-linear-to-br from-primary via-primary-dark to-primary overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl" />
-        </div>
-        
-        <Container className="relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <AnimatedSection>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-accent text-sm font-semibold mb-6">
-                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                Nos services
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white">
-                Des solutions digitales
-                <span className="block text-accent">sur mesure</span>
-              </h1>
-              <p className="mt-8 text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
-                De la stratégie à la réalisation, nous couvrons tous vos besoins
-                digitaux avec expertise et créativité.
-              </p>
-            </AnimatedSection>
-          </div>
-        </Container>
-      </section>
+      <MaquetteHero
+        src="/img/SERVICES_WST_825e.png"
+        alt="Services digitaux au Sénégal — Ideatys Digital à Dakar"
+        textSide="right"
+        textWidthPercent={48}
+        priority
+      >
+        <AnimatedSection>
+          <HeroBadge>Nos services</HeroBadge>
+          <h1 className="font-bold leading-[1.12] text-white text-[clamp(1.4rem,3.1vw,3rem)]">
+            Des solutions digitales{" "}
+            <span className="text-accent">sur mesure</span>
+          </h1>
+          <p className="mt-[0.75em] text-white/85 leading-snug text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[40ch]">
+            De la stratégie à la réalisation, nous couvrons vos besoins digitaux
+            avec expertise et créativité — à Dakar et en Afrique de l&apos;Ouest.
+          </p>
+        </AnimatedSection>
+      </MaquetteHero>
 
       {/* Services Grid */}
       <section className="py-20 md:py-28 bg-gray-light">

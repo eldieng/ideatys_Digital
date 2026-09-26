@@ -71,7 +71,7 @@ export default async function UsersPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {users.map((user) => (
+              {users.map((user: any) => (
               <tr key={user.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
@@ -85,9 +85,9 @@ export default async function UsersPage() {
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full ${roleColors[user.role]}`}>
+                  <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full ${roleColors[user.role as keyof typeof roleColors]}`}>
                     <Shield className="w-3 h-3" />
-                    {roleLabels[user.role]}
+                    {roleLabels[user.role as keyof typeof roleLabels]}
                   </span>
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-600">
