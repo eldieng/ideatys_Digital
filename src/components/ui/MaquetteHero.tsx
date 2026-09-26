@@ -126,11 +126,12 @@ function MobileFullImage({
   textSide?: TextSide;
   objectClass?: string;
 }) {
+  // Pas de scale() : évite le scroll horizontal / "ça bouge" sur mobile
   const cropClass =
     objectClass ??
     (textSide === "right"
-      ? "object-cover object-[20%_center] scale-110"
-      : "object-cover object-[85%_center] scale-110");
+      ? "object-cover object-[18%_center]"
+      : "object-cover object-[88%_center]");
 
   return (
     <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[240px] overflow-hidden md:hidden">
@@ -181,7 +182,7 @@ export default function MaquetteHero({
             alt={alt}
             priority={priority}
             textSide="left"
-            objectClass="object-cover object-center scale-105"
+            objectClass="object-cover object-center"
           />
         ) : null}
         <MobileTextBlock>{children}</MobileTextBlock>
@@ -241,7 +242,7 @@ export default function MaquetteHero({
             alt={alt}
             priority={priority}
             textSide="left"
-            objectClass="object-cover object-center scale-105"
+            objectClass="object-cover object-center"
           />
         ) : null}
         <MobileTextBlock>{children}</MobileTextBlock>

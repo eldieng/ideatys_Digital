@@ -111,7 +111,7 @@ export default function HeroSection() {
             src="/img/Home_page_4f45.png"
             alt="Agence digitale à Dakar — équipe Ideatys Digital au travail"
             fill
-            className="object-cover object-[80%_center] scale-110"
+            className="object-cover object-[80%_center]"
             sizes="100vw"
             priority
           />
