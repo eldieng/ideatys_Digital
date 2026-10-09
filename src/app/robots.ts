@@ -1,14 +1,26 @@
 import { MetadataRoute } from "next";
+import { headers } from "next/headers";
+import { isConstructionHost } from "@/lib/hosts";
 
-export const dynamic = "force-static";
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const host = (await headers()).get("host") ?? "";
+  const hostname = host.split(":")[0];
 
-export default function robots(): MetadataRoute.Robots {
+  if (isConstructionHost(hostname)) {
+    return {
+      rules: {
+        userAgent: "*",
+        disallow: "/",
+      },
+    };
+  }
+
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/"],
+      disallow: ["/api/", "/admin/"],
     },
-    sitemap: "https://ideatysdigital.com/sitemap.xml",
+    sitemap: `https://${hostname}/sitemap.xml`,
   };
 }

@@ -13,10 +13,33 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File;
-    const folder = (formData.get("folder") as string) || "ideatys";
+    const requestedFolder = (formData.get("folder") as string) || "ideatys";
+    const allowedFolders = new Set(["ideatys", "articles", "realisations", "services"]);
+    const folder = allowedFolders.has(requestedFolder) ? requestedFolder : "ideatys";
+    const allowedTypes = new Set([
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/avif",
+      "image/gif",
+    ]);
 
     if (!file) {
       return NextResponse.json({ error: "Aucun fichier fourni" }, { status: 400 });
+    }
+
+    if (!allowedTypes.has(file.type)) {
+      return NextResponse.json(
+        { error: "Le fichier doit être une image JPEG, PNG, WebP, AVIF ou GIF." },
+        { status: 400 }
+      );
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      return NextResponse.json(
+        { error: "L'image ne doit pas dépasser 5 Mo." },
+        { status: 400 }
+      );
     }
 
     // Convertir le fichier en base64

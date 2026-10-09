@@ -70,39 +70,38 @@ export default async function ServicesPage() {
                   href={`/services/${service.slug}`}
                   className="group block h-full"
                 >
-                  <div className="relative bg-white rounded-3xl p-8 h-full hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                    {/* Hover gradient overlay */}
-                    <div className="absolute inset-0 bg-linear-to-br from-primary to-primary-dark opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    <div className="relative z-10">
-                      {/* Icon with background */}
-                      <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6 group-hover:bg-white/20 group-hover:text-white transition-all duration-500">
+                  <div className="relative bg-white rounded-3xl p-6 sm:p-8 h-full md:hover:shadow-2xl transition-shadow duration-500 overflow-hidden">
+                    {/* Hover desktop uniquement */}
+                    <div className="absolute inset-0 bg-linear-to-br from-primary to-primary-dark opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                    <div className="relative z-10 min-w-0">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-5 sm:mb-6 md:group-hover:bg-white/20 md:group-hover:text-white transition-all duration-500">
                         {iconMap[service.icon]}
                       </div>
-                      
-                      <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3 group-hover:text-white transition-colors duration-500 flex items-center gap-2">
-                        {service.title}
-                        <ArrowUpRight className="w-5 h-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+
+                      <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3 md:group-hover:text-white transition-colors duration-500 flex items-start gap-2">
+                        <span className="min-w-0 break-words">{service.title}</span>
+                        <ArrowUpRight className="w-5 h-5 shrink-0 opacity-0 -translate-x-2 md:group-hover:opacity-100 md:group-hover:translate-x-0 transition-all duration-300 hidden md:block" />
                       </h2>
-                      
-                      <p className="text-gray-dark leading-relaxed mb-6 group-hover:text-white/80 transition-colors duration-500">
+
+                      <p className="text-gray-dark leading-relaxed mb-5 sm:mb-6 md:group-hover:text-white/80 transition-colors duration-500 break-words">
                         {service.shortDesc}
                       </p>
-                      
+
                       <ul className="space-y-2">
                         {service.features.slice(0, 3).map((feature) => (
                           <li
                             key={feature}
-                            className="flex items-center gap-3 text-sm text-gray-dark group-hover:text-white/70 transition-colors duration-500"
+                            className="flex items-start gap-3 text-sm text-gray-dark md:group-hover:text-white/70 transition-colors duration-500"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-accent group-hover:bg-white shrink-0" />
-                            {feature}
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent md:group-hover:bg-white shrink-0 mt-1.5" />
+                            <span className="min-w-0 break-words">{feature}</span>
                           </li>
                         ))}
                       </ul>
-                      
-                      <div className="mt-6 pt-6 border-t border-gray/30 group-hover:border-white/20 transition-colors duration-500">
-                        <span className="text-sm font-semibold text-accent group-hover:text-white transition-colors duration-500">
+
+                      <div className="mt-6 pt-6 border-t border-gray/30 md:group-hover:border-white/20 transition-colors duration-500">
+                        <span className="text-sm font-semibold text-accent md:group-hover:text-white transition-colors duration-500">
                           En savoir plus →
                         </span>
                       </div>

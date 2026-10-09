@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { isConstructionHost } from "@/lib/hosts";
 
-// Mode présentation : redirige toutes les pages sauf l'accueil vers /en-construction
-const PRESENTATION_MODE = true;
+// Le domaine principal reste en construction. test.ideatysdigital.com et le local servent le site.
 
 // Pages autorisées en mode présentation (seulement la page en construction et les ressources)
 const allowedPaths = [
@@ -17,7 +17,7 @@ const allowedPaths = [
 ];
 
 export function middleware(request: NextRequest) {
-  if (!PRESENTATION_MODE) {
+  if (!isConstructionHost(request.headers.get("host"))) {
     return NextResponse.next();
   }
 

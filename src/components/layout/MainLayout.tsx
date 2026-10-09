@@ -12,7 +12,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <>
       <Header />
-      <main id="main-content" className="min-h-screen pt-20">
+      <main id="main-content" className="min-h-screen pt-20 overflow-x-clip">
         <PageTransition>{children}</PageTransition>
       </main>
       <Footer />

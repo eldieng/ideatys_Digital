@@ -14,7 +14,7 @@ const roleOptions = [
 
 export default function NewUserPage() {
   const router = useRouter();
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
@@ -29,13 +29,18 @@ export default function NewUserPage() {
     return null;
   }
 
+  if (status === "authenticated" && session?.user?.role !== "ADMIN") {
+    router.push("/admin");
+    return null;
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
     setError("");
 
-    if (formData.password.length < 8) {
-      setError("Le mot de passe doit contenir au moins 8 caractères");
+    if (formData.password.length < 12) {
+      setError("Le mot de passe doit contenir au moins 12 caractères");
       setSaving(false);
       return;
     }
@@ -119,7 +124,7 @@ export default function NewUserPage() {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
               required
               minLength={8}
-              placeholder="Minimum 8 caractères"
+              placeholder="Minimum 12 caractères"
             />
           </div>
 

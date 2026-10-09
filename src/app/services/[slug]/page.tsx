@@ -19,6 +19,7 @@ import CTASection from "@/components/sections/CTASection";
 import MaquetteHero, { HeroBadge } from "@/components/ui/MaquetteHero";
 import { services } from "@/data/services";
 import { ArrowRight } from "lucide-react";
+import prisma from "@/lib/prisma";
 
 const iconMap: Record<string, React.ReactNode> = {
   Target: <Target className="w-12 h-12" />,
@@ -31,9 +32,11 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export async function generateStaticParams() {
-  return services.map((service) => ({
-    slug: service.slug,
-  }));
+  const rows = await prisma.service.findMany({
+    where: { published: true },
+    select: { slug: true },
+  });
+  return rows.map((service) => ({ slug: service.slug }));
 }
 
 export async function generateMetadata({
@@ -42,7 +45,10 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const service = services.find((s) => s.slug === slug);
+  const service = await prisma.service.findFirst({
+    where: { slug, published: true },
+    select: { title: true, description: true },
+  });
   if (!service) return {};
 
   return {
@@ -57,11 +63,27 @@ export default async function ServicePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = services.find((s) => s.slug === slug);
+  const record = await prisma.service.findFirst({
+    where: { slug, published: true },
+  });
 
-  if (!service) {
+  if (!record) {
     notFound();
   }
+
+  const editorial = services.find((item) => item.slug === record.slug);
+  const service = {
+    slug: record.slug,
+    title: record.title,
+    description: record.description,
+    shortDescription: record.shortDesc,
+    icon: record.icon,
+    features: record.features,
+    problematic: editorial?.problematic,
+    solution: editorial?.solution,
+    process: editorial?.process ?? [],
+    results: editorial?.results?.length ? editorial.results : record.features,
+  };
 
   return (
     <MainLayout>
@@ -113,13 +135,13 @@ export default async function ServicePage({
           >
             <AnimatedSection>
               <HeroBadge>Nos services</HeroBadge>
-              <div className="text-accent mb-[0.45em] scale-75 origin-left sm:scale-90 lg:scale-100">
+              <div className="hero-icon text-accent mb-3 md:mb-[0.45em] flex justify-center md:justify-start scale-90 md:scale-90 lg:scale-100 md:origin-left">
                 {iconMap[service.icon]}
               </div>
-              <h1 className="font-bold text-white leading-[1.12] tracking-tight text-[clamp(1.35rem,3vw,2.85rem)]">
+              <h1 className="font-bold text-white leading-[1.12] tracking-tight text-[1.75rem] md:text-[clamp(1.35rem,3vw,2.85rem)]">
                 {service.title}
               </h1>
-              <p className="mt-[0.7em] text-white/90 leading-snug text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[38ch]">
+              <p className="mt-3 md:mt-[0.7em] text-white/90 leading-relaxed md:leading-snug text-base md:text-[clamp(0.9rem,1.45vw,1.2rem)] max-w-[38ch] mx-auto md:mx-0">
                 {subtitle}
               </p>
             </AnimatedSection>
@@ -127,7 +149,7 @@ export default async function ServicePage({
         );
       })()}
 
-      {/* Problématique */}
+      {service.problematic && service.solution && (
       <section className="py-20 md:py-28 bg-white">
         <Container size="md">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -156,8 +178,9 @@ export default async function ServicePage({
           </div>
         </Container>
       </section>
+      )}
 
-      {/* Processus */}
+      {service.process.length > 0 && (
       <section className="py-20 md:py-28 bg-gray-light">
         <Container size="md">
           <AnimatedSection>
@@ -190,6 +213,7 @@ export default async function ServicePage({
           </div>
         </Container>
       </section>
+      )}
 
       {/* Résultats */}
       <section className="py-20 md:py-28 bg-white">

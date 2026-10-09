@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { denyUnless, isDenied } from "@/lib/admin-auth";
 import prisma from "@/lib/prisma";
 
 export async function GET(
@@ -54,11 +55,8 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
-  }
+  const access = await denyUnless("admin");
+  if (isDenied(access)) return access;
 
   const { id } = await params;
 

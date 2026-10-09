@@ -29,6 +29,10 @@ export default async function DevisPage() {
     redirect("/admin/login");
   }
 
+  if (session.user.role !== "ADMIN") {
+    redirect("/admin");
+  }
+
   const devisList = await prisma.devis.findMany({
     orderBy: { createdAt: "desc" },
   });
