@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { denyUnless, isDenied } from "@/lib/admin-auth";
 
 const services = [
   {
@@ -217,6 +218,9 @@ const articles = [
 ];
 
 export async function POST() {
+  const access = await denyUnless("admin");
+  if (isDenied(access)) return access;
+
   try {
     // Seed services
     for (const service of services) {

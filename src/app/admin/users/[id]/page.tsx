@@ -27,7 +27,7 @@ export default function EditUserPage({
 }) {
   const { id } = use(params);
   const router = useRouter();
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -38,7 +38,10 @@ export default function EditUserPage({
     if (status === "unauthenticated") {
       router.push("/admin/login");
     }
-  }, [status, router]);
+    if (status === "authenticated" && session?.user?.role !== "ADMIN") {
+      router.push("/admin");
+    }
+  }, [status, session, router]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -67,8 +70,8 @@ export default function EditUserPage({
     setSaving(true);
     setError("");
 
-    if (newPassword && newPassword.length < 8) {
-      setError("Le mot de passe doit contenir au moins 8 caractères");
+    if (newPassword && newPassword.length < 12) {
+      setError("Le mot de passe doit contenir au moins 12 caractères");
       setSaving(false);
       return;
     }

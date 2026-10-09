@@ -29,6 +29,10 @@ export default async function FacturesPage() {
     redirect("/admin/login");
   }
 
+  if (session.user.role !== "ADMIN") {
+    redirect("/admin");
+  }
+
   const factures = await prisma.facture.findMany({
     orderBy: { createdAt: "desc" },
   });

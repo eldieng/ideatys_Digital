@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import {
   LayoutDashboard,
@@ -19,20 +19,23 @@ import {
 } from "lucide-react";
 
 const navigation = [
-  { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { name: "Articles", href: "/admin/articles", icon: FileText },
-  { name: "Réalisations", href: "/admin/realisations", icon: FolderOpen },
-  { name: "Services", href: "/admin/services", icon: Briefcase },
-  { name: "Demandes", href: "/admin/demandes", icon: MessageSquare },
-  { name: "Devis", href: "/admin/devis", icon: FileCheck },
-  { name: "Factures", href: "/admin/factures", icon: Receipt },
-  { name: "Candidatures", href: "/admin/candidatures", icon: Users },
-  { name: "Utilisateurs", href: "/admin/users", icon: UserCog },
-  { name: "Paramètres", href: "/admin/settings", icon: Settings },
+  { name: "Dashboard", href: "/admin", icon: LayoutDashboard, adminOnly: false },
+  { name: "Articles", href: "/admin/articles", icon: FileText, adminOnly: false },
+  { name: "Réalisations", href: "/admin/realisations", icon: FolderOpen, adminOnly: false },
+  { name: "Services", href: "/admin/services", icon: Briefcase, adminOnly: false },
+  { name: "Demandes", href: "/admin/demandes", icon: MessageSquare, adminOnly: false },
+  { name: "Devis", href: "/admin/devis", icon: FileCheck, adminOnly: true },
+  { name: "Factures", href: "/admin/factures", icon: Receipt, adminOnly: true },
+  { name: "Candidatures", href: "/admin/candidatures", icon: Users, adminOnly: false },
+  { name: "Utilisateurs", href: "/admin/users", icon: UserCog, adminOnly: true },
+  { name: "Paramètres", href: "/admin/settings", icon: Settings, adminOnly: false },
 ];
 
 export default function AdminSidebar() {
   const pathname = usePathname();
+  const { data } = useSession();
+  const isAdmin = data?.user?.role === "ADMIN";
+  const items = navigation.filter((item) => isAdmin || !item.adminOnly);
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-64 bg-primary text-white flex flex-col">
@@ -51,7 +54,7 @@ export default function AdminSidebar() {
 
       <nav className="flex-1 p-4">
         <ul className="space-y-1">
-          {navigation.map((item) => {
+          {items.map((item) => {
             const isActive =
               pathname === item.href ||
               (item.href !== "/admin" && pathname.startsWith(item.href));

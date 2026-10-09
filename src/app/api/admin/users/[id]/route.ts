@@ -1,18 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { denyUnless, isDenied, isStaffRole } from "@/lib/admin-auth";
 import bcrypt from "bcryptjs";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
-  }
+  const access = await denyUnless("admin");
+  if (isDenied(access)) return access;
 
   const { id } = await params;
 
@@ -38,14 +34,26 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
-  }
+  const access = await denyUnless("admin");
+  if (isDenied(access)) return access;
 
   const { id } = await params;
   const data = await request.json();
+
+  if (data.role !== undefined && !isStaffRole(data.role)) {
+    return NextResponse.json({ error: "Rôle invalide" }, { status: 400 });
+  }
+
+  if (
+    data.password &&
+    (typeof data.password !== "string" ||
+      (data.password.trim() !== "" && data.password.length < 12))
+  ) {
+    return NextResponse.json(
+      { error: "Le mot de passe doit contenir au moins 12 caractères" },
+      { status: 400 }
+    );
+  }
 
   // Vérifier si l'email existe déjà pour un autre utilisateur
   if (data.email) {
@@ -94,18 +102,15 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
-  }
+  const access = await denyUnless("admin");
+  if (isDenied(access)) return access;
 
   const { id } = await params;
 
   // Empêcher la suppression de son propre compte
-  if (session.user?.email) {
+  if (access.user?.email) {
     const currentUser = await prisma.user.findUnique({
-      where: { email: session.user.email },
+      where: { email: access.user.email },
     });
 
     if (currentUser?.id === id) {

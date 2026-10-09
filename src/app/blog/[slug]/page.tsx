@@ -15,6 +15,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import Badge from "@/components/ui/Badge";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import prisma from "@/lib/prisma";
+import { sanitizeArticleHtml } from "@/lib/sanitize-html";
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString("fr-FR", {
@@ -136,7 +137,7 @@ export default async function BlogArticlePage({
               {/* Article body */}
               <article
                 className="prose prose-lg max-w-none prose-headings:text-primary prose-headings:font-bold prose-headings:mt-10 prose-headings:mb-4 prose-h2:text-2xl md:prose-h2:text-3xl prose-p:text-gray-dark prose-p:leading-relaxed prose-p:mb-6 prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-strong:text-primary"
-                dangerouslySetInnerHTML={{ __html: article.content }}
+                dangerouslySetInnerHTML={{ __html: sanitizeArticleHtml(article.content) }}
               />
 
               {/* Share section */}
