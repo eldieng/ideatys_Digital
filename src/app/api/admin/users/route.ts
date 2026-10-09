@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { denyUnless, isDenied, isStaffRole } from "@/lib/admin-auth";
 import bcrypt from "bcryptjs";
 
 export async function GET() {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
-  }
+  const access = await denyUnless("admin");
+  if (isDenied(access)) return access;
 
   const users = await prisma.user.findMany({
     orderBy: { createdAt: "desc" },
@@ -26,13 +22,25 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
-  }
+  const access = await denyUnless("admin");
+  if (isDenied(access)) return access;
 
   const data = await request.json();
+
+  if (!isStaffRole(data.role)) {
+    return NextResponse.json({ error: "Rôle invalide" }, { status: 400 });
+  }
+
+  if (typeof data.password !== "string" || data.password.length < 12) {
+    return NextResponse.json(
+      { error: "Le mot de passe doit contenir au moins 12 caractères" },
+      { status: 400 }
+    );
+  }
+
+  if (typeof data.email !== "string" || !data.email.includes("@")) {
+    return NextResponse.json({ error: "Email invalide" }, { status: 400 });
+  }
 
   // Vérifier si l'email existe déjà
   const existingUser = await prisma.user.findUnique({

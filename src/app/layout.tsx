@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/components/providers/SessionProvider";
+import { isConstructionHost } from "@/lib/hosts";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -15,7 +17,10 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const construction = isConstructionHost((await headers()).get("host"));
+
+  return {
   title: {
     default: "IDEATYS Digital – Agence Digitale à Dakar, Sénégal",
     template: "%s | IDEATYS Digital",
@@ -64,10 +69,9 @@ export const metadata: Metadata = {
     description:
       "Agence digitale à Dakar. Création de sites web, community management, production audiovisuelle et design graphique au Sénégal.",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: construction
+    ? { index: false, follow: false }
+    : { index: true, follow: true },
   icons: {
     icon: "/img/ideatysdigital_logo.jpg",
     apple: "/img/ideatysdigital_logo.jpg",
@@ -88,7 +92,8 @@ export const metadata: Metadata = {
       ],
     }),
   },
-};
+  };
+}
 
 export default function RootLayout({
   children,

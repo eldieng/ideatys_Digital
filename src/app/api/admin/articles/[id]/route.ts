@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { denyUnless, isDenied } from "@/lib/admin-auth";
+import { sanitizeArticleHtml } from "@/lib/sanitize-html";
 
 export async function GET(
   request: NextRequest,
@@ -47,7 +49,7 @@ export async function PUT(
         title: body.title,
         slug: body.slug,
         excerpt: body.excerpt,
-        content: body.content,
+        content: sanitizeArticleHtml(String(body.content ?? "")),
         category: body.category,
         author: body.author,
         readTime: body.readTime,
@@ -70,11 +72,8 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
-  }
+  const access = await denyUnless("admin");
+  if (isDenied(access)) return access;
 
   const { id } = await params;
 
